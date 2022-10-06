@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
+	"hangman/Functions"
 )
 
 type game struct {
@@ -13,5 +13,5 @@ type game struct {
 func main() {
 	var partie game
 	partie.Word = hangman.GetWord()
-	fmt.Println(partie.Word)
+	fmt.Println(hangman.RevealWord(partie.Word))
 }
