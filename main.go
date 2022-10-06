@@ -1,13 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	hangman "hangman/Functions"
+)
 
-type hangman struct {
+type game struct {
 	Advancment, Word string
 	tried            int
 }
 
 func main() {
-	hangman.Word = hangman.GetWord()
-	fmt.Println(hangman.word)
+	var partie game
+	partie.Word = hangman.GetWord()
+	fmt.Println(partie.Word)
 }

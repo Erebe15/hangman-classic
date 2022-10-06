@@ -7,7 +7,7 @@ import (
 )
 
 func GetWord() string {
-	data, err := os.ReadFile("WordsLists/words.txt")
+	data, err := os.ReadFile("./wordsLists/words.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,6 +20,6 @@ func GetWord() string {
 			LettersOfTheWord = LettersOfTheWord + string(l)
 		}
 	}
-	index := rand.Int(0, len(WordsList))
+	index := rand.Intn(len(WordsList))
 	return WordsList[index]
 }
