@@ -1,0 +1,3 @@
+package hangman
+
+//func PrintWord()
