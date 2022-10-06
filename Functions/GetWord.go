@@ -4,6 +4,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -16,12 +17,17 @@ func GetWord() string {
 	var LettersOfTheWord string
 	for _, l := range data {
 		if string(l) == "\n" {
-			WordsList = append(WordsList, LettersOfTheWord)
+			WordsList = append(WordsList, LettersOfTheWord[:len(LettersOfTheWord)-1]) // -1 getting rid of the backslash (byte '13')
 			LettersOfTheWord = ""
 		} else {
 			LettersOfTheWord = LettersOfTheWord + string(l)
 		}
 	}
 	rand.Seed(time.Now().UnixNano())
-	return WordsList[rand.Intn(len(WordsList))]
+	mot := strings.ToUpper(WordsList[rand.Intn(len(WordsList))])
+	for i, l := range mot {
+		println(i, "= ", string(l))
+	}
+	return mot
+	//return "EAU"
 }

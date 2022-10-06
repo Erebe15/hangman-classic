@@ -6,12 +6,15 @@ import (
 )
 
 type game struct {
-	Advancment, Word string
-	tried            int
+	Word                   string
+	tries                  int
+	guess, RevealedLettres []string
 }
 
 func main() {
-	var partie game
-	partie.Word = hangman.GetWord()
-	fmt.Println(hangman.RevealWord(partie.Word))
+	var GameInProgress game
+	GameInProgress.Word = hangman.GetWord()
+	fmt.Println("the secret word is:", GameInProgress.Word)
+	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+	fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
 }
