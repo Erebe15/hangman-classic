@@ -7,7 +7,7 @@ import (
 )
 
 func GetWord() string {
-	data, err := os.ReadFile("./wordsLists/words.txt")
+	data, err := os.ReadFile("Words.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
