@@ -2,6 +2,12 @@ package main
 
 import "fmt"
 
+type hangman struct {
+	Advancment, Word string
+	tried            int
+}
+
 func main() {
-	fmt.Println("toto")
+	hangman.Word = hangman.GetWord()
+	fmt.Println(hangman.word)
 }
