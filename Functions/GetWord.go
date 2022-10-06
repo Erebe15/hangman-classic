@@ -24,10 +24,10 @@ func GetWord() string {
 		}
 	}
 	rand.Seed(time.Now().UnixNano())
-	mot := strings.ToUpper(WordsList[rand.Intn(len(WordsList))])
-	for i, l := range mot {
+	word := strings.ToUpper(WordsList[rand.Intn(len(WordsList))])
+	for i, l := range word {
 		println(i, "= ", string(l))
 	}
-	return mot
+	return word
 	//return "EAU"
 }
