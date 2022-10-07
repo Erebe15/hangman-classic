@@ -5,9 +5,9 @@ import (
 	"strings"
 )
 
-func StartPlaying(GameInProgress Game) { // go file in root to use struc "game" freely
+func StartPlaying(GameInProgress Game) { // go file in root to use structure "game" freely
 	hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
-	for GameInProgress.Tries < 10 && !WordCompleted(GameInProgress) {
+	for GameInProgress.Tries < 10 && !WordIsCompleted(GameInProgress) {
 		guess := ChooseLetter(GameInProgress)
 		GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, strings.ToUpper(guess))
 		if IsGoodAnswer(GameInProgress, guess) {
@@ -17,6 +17,9 @@ func StartPlaying(GameInProgress Game) { // go file in root to use struc "game" 
 			GameInProgress.Tries++
 		}
 	}
-
-	println("ggwp...")
+	if WordIsCompleted(GameInProgress) {
+		println("_______GG WP_______")
+	} else {
+		println("_____GAME OVER_____")
+	}
 }

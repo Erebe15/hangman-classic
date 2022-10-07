@@ -11,10 +11,10 @@ func ChooseLetter(GameInProgress Game) string {
 	//var letterFalse []string
 	letterValid := false
 	for !letterValid {
-		fmt.Printf("Choose a letter : ")
+		fmt.Printf("Choose a letter: ")
 		fmt.Scanln(&letter)
 		letter = strings.ToUpper(letter)
-		if !IsAlpha(letter) {
+		if !hangman.IsAlpha(letter) {
 			fmt.Println("Please, select a letter, try again. ")
 			fmt.Println("")
 			fmt.Println("___________________________________")
@@ -23,7 +23,7 @@ func ChooseLetter(GameInProgress Game) string {
 			fmt.Println("")
 			fmt.Println("___________________________________")
 		} else if hangman.DoesContain(GameInProgress.RevealedLettres, letter) {
-			fmt.Println("This letter has already been chosen")
+			fmt.Println("This letter has already been Revealed")
 			fmt.Println("")
 			fmt.Println("___________________________________")
 		} else if hangman.DoesContain(GameInProgress.guess, letter) {
@@ -37,16 +37,4 @@ func ChooseLetter(GameInProgress Game) string {
 		}
 	}
 	return letter
-}
-
-func IsAlpha(s string) bool {
-	for i := 0; i < len(s); i++ {
-		if s[i] > 96 && s[i] < 123 {
-			return true
-		}
-		if s[i] > 64 && s[i] < 91 {
-			return true
-		}
-	}
-	return false
 }
