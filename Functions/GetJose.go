@@ -12,7 +12,6 @@ func GetJose() []string {
 		log.Fatal(err)
 	}
 	os := runtime.GOOS //runtime.GOOS -> linux, windows, darwin etc.
-	println("\nYou are running on", os, "!")
 
 	var JosePositions []string
 	var char string
