@@ -12,9 +12,9 @@ func RevealStartLettres(WordChosen string) []string { // select random lettres f
 
 	if len(WordChosen) >= 3 {
 		for len(ChosenLettres) < NumberOfRevealed {
-			RndLettre := string(WordChosen[rand.Intn(len(WordChosen))])
-			if !DoesContain(ChosenLettres, RndLettre) {
-				ChosenLettres = append(ChosenLettres, RndLettre)
+			RndLetter := string(WordChosen[rand.Intn(len(WordChosen))])
+			if !DoesContain(ChosenLettres, RndLetter) {
+				ChosenLettres = append(ChosenLettres, RndLetter)
 			}
 		}
 	}
