@@ -4,6 +4,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -13,11 +14,18 @@ func GetWord() string {
 	if err != nil {
 		log.Fatal(err)
 	}
+	os := runtime.GOOS //runtime.GOOS -> linux, windows, darwin etc.
+	println("\nYou are running on", os, "!")
+
 	var WordsList []string
 	var LettersOfTheWord string
 	for _, l := range data {
 		if string(l) == "\n" {
-			WordsList = append(WordsList, LettersOfTheWord[:len(LettersOfTheWord)-1]) // -1 getting rid of the backslash (byte '13')
+			if os == "windows" {
+				WordsList = append(WordsList, LettersOfTheWord[:len(LettersOfTheWord)-1]) // -1 getting rid of the backslash (byte '13')
+			} else {
+				WordsList = append(WordsList, LettersOfTheWord[:len(LettersOfTheWord)])
+			}
 			LettersOfTheWord = ""
 		} else {
 			LettersOfTheWord = LettersOfTheWord + string(l)
@@ -25,9 +33,6 @@ func GetWord() string {
 	}
 	rand.Seed(time.Now().UnixNano())
 	word := strings.ToUpper(WordsList[rand.Intn(len(WordsList))])
-	for i, l := range word {
-		println(i, "= ", string(l))
-	}
 	return word
 	//return "EAU"
 }
