@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func PrintJose(InProgress Game) {
-	fmt.Println("NON")
+	fmt.Println(InProgress.JoseStates[InProgress.Tries])
 }

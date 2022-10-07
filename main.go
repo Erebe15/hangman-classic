@@ -6,9 +6,9 @@ import (
 )
 
 type Game struct {
-	Word                   string
-	Tries                  int
-	guess, RevealedLettres []string
+	Word                               string
+	Tries                              int
+	guess, RevealedLettres, JoseStates []string
 }
 
 func main() {
@@ -19,5 +19,6 @@ func main() {
 	fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
 
 	GameInProgress.Tries = 0
+	GameInProgress.JoseStates = hangman.GetJose()
 	StartPlaying(GameInProgress)
 }
