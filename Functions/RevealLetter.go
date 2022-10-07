@@ -6,7 +6,6 @@ import (
 )
 
 func RevealStartLettres(WordChosen string) []string { // select random lettres from the word for the start
-
 	rand.Seed(time.Now().UnixNano())
 	var ChosenLettres []string
 
