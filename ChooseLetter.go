@@ -2,13 +2,11 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-func ChooseLetter(GameInProgress Game) Game {
+func ChooseLetter(GameInProgress Game) string {
 	var letter string
 	fmt.Scanln(&letter)
 	println("letter: ", letter)
-	GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, strings.ToUpper(letter))
-	return GameInProgress
+	return letter
 }
