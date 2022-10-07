@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ChooseLetter(GameInProgress Game) Game {
+func ChooseLetter(GameInProgress Game) string {
 	var letter string
 	fmt.Scanln(&letter)
 	if !IsAlpha(letter) {
@@ -18,7 +18,7 @@ func ChooseLetter(GameInProgress Game) Game {
 	} else {
 		println("letter: ", letter)
 	}
-	return GameInProgress
+	return letter
 }
 
 func IsAlpha(s string) bool {
