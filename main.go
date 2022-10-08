@@ -26,7 +26,7 @@ func main() {
 
 		fmt.Println("")
 		fmt.Println("Do you want to play again ?")
-		fmt.Printf("press 'y' to play again, or any other key to quit : ")
+		fmt.Printf("Press 'y' to play again, or any other key to quit : ")
 		fmt.Scanln(&choice)
 		if choice == "Y" || choice == "y" {
 			DontPlayAgain = false
