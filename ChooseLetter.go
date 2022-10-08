@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
+	"hangman/Functions"
 	"strings"
 )
 
 func ChooseLetter(GameInProgress Game) string {
 	var letter string
-	//var letterFalse []string
 	letterValid := false
 	for !letterValid {
 		fmt.Printf("Choose a letter: ")

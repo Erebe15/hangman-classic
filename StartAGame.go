@@ -6,6 +6,7 @@ import (
 )
 
 func StartPlaying(GameInProgress Game) { // go file in root to use structure "game" freely
+
 	hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
 	for GameInProgress.Tries < 10 && !WordIsCompleted(GameInProgress) {
 		guess := ChooseLetter(GameInProgress)
@@ -19,7 +20,9 @@ func StartPlaying(GameInProgress Game) { // go file in root to use structure "ga
 	}
 	if WordIsCompleted(GameInProgress) {
 		println("_______GG WP_______")
+
 	} else {
 		println("_____GAME OVER_____")
 	}
+
 }

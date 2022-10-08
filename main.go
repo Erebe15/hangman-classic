@@ -13,12 +13,25 @@ type Game struct {
 
 func main() {
 	var GameInProgress Game
-	GameInProgress.Word = hangman.GetWord()
-	fmt.Println("the secret word is:", GameInProgress.Word)
-	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
-	fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
+	DontPlayAgain := false
+	choice := ""
+	for !DontPlayAgain {
+		GameInProgress.Word = hangman.GetWord()
+		fmt.Println("the secret word is:", GameInProgress.Word)
+		GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+		fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
+		GameInProgress.Tries = 0
+		GameInProgress.JoseStates = hangman.GetJose()
+		StartPlaying(GameInProgress)
 
-	GameInProgress.Tries = 0
-	GameInProgress.JoseStates = hangman.GetJose()
-	StartPlaying(GameInProgress)
+		fmt.Println("")
+		fmt.Println("Do you want to play again ?")
+		fmt.Printf("press 'y' to play again, or any other key to quit : ")
+		fmt.Scanln(&choice)
+		if choice == "Y" || choice == "y" {
+			DontPlayAgain = false
+		} else {
+			DontPlayAgain = true
+		}
+	}
 }
