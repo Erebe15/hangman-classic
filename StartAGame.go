@@ -19,6 +19,6 @@ func StartPlaying(GameInProgress Game) { // go file in root to use structure "ga
 		}
 	}
 	if WordIsCompleted(GameInProgress) {
-		println("_______GG WP_______")
+		hangman.PrintYouWin()
 	}
 }

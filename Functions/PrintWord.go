@@ -10,5 +10,6 @@ func PrintWord(Word string, LetterList []string) {
 			fmt.Print("_")
 		}
 	}
-	fmt.Print("\n")
+	println("")
+	println("")
 }
