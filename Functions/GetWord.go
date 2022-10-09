@@ -1,6 +1,7 @@
 package hangman
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -15,7 +16,8 @@ func GetWord() string {
 		log.Fatal(err)
 	}
 	os := runtime.GOOS //runtime.GOOS -> linux, windows, darwin etc.
-	println("\nYou are running on", os, "!")
+	println("You are running on", os, "!")
+	fmt.Println("")
 
 	var WordsList []string
 	var LettersOfTheWord string
