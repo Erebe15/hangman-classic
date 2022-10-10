@@ -9,25 +9,27 @@ import (
 func ChooseLetter(GameInProgress Game) string {
 	var letter string
 	letterValid := false
+	var choice string
 	for !letterValid {
 		fmt.Printf("Choose a letter: ")
 		fmt.Scanln(&letter)
 		letter = strings.ToUpper(letter)
 		if !hangman.IsAlpha(letter) {
-			fmt.Println("Please, select a letter, try again. ")
-			fmt.Println("")
+			fmt.Printf("Please, select a letter, try again.\n\n")
 			fmt.Println("___________________________________")
 		} else if len(letter) > 1 {
-			fmt.Println("Please, select only one letter, try again. ")
-			fmt.Println("")
+			fmt.Printf("do you think it's %s?\n", letter)
+			fmt.Printf("yes / no\n")
+			fmt.Scanln(&choice)
+			if strings.ToUpper(choice) == "YES" {
+				letterValid = true
+			}
 			fmt.Println("___________________________________")
 		} else if hangman.DoesContain(GameInProgress.RevealedLettres, letter) {
-			fmt.Println("This letter has already been Revealed")
-			fmt.Println("")
+			fmt.Printf("This letter has already been Revealed\n\n")
 			fmt.Println("___________________________________")
 		} else if hangman.DoesContain(GameInProgress.guess, letter) {
-			fmt.Println("This letter has already been chosen")
-			fmt.Println("")
+			fmt.Printf("This letter has already been chosen\n\n")
 			fmt.Println("___________________________________")
 		} else {
 			letterValid = true
@@ -35,5 +37,5 @@ func ChooseLetter(GameInProgress Game) string {
 			GameInProgress.guess = append(GameInProgress.guess, letter)
 		}
 	}
-	return letter
+	return strings.ToUpper(letter)
 }

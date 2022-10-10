@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"hangman/Functions"
+	"strings"
 )
 
 type Game struct {
@@ -29,7 +30,7 @@ func main() {
 		fmt.Println("Do you want to play again ?")
 		fmt.Printf("Enter 'y' to play again, or any other input to quit : ")
 		fmt.Scanln(&choice)
-		if choice == "Y" || choice == "y" {
+		if strings.ToUpper(choice) == "Y" {
 			PlayAgain = true
 		} else {
 			fmt.Println("See you later!")
