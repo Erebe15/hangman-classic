@@ -15,7 +15,9 @@ func StartPlaying(GameInProgress Game) { // go file in root to use structure "ga
 			hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
 		} else {
 			PrintJose(GameInProgress)
-			hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
+			if GameInProgress.Tries < 9 {
+				hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
+			}
 			GameInProgress.Tries++
 		}
 	}
