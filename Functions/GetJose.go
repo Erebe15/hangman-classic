@@ -7,7 +7,7 @@ import (
 )
 
 func GetJose() []string {
-	data, err := os.ReadFile("WordsLists/hangman.txt")
+	data, err := os.ReadFile("FilesAndLists/hangman.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -7,7 +7,7 @@ import (
 )
 
 func PrintYouWin() {
-	content, err := ioutil.ReadFile("WordsLists/youwin.txt")
+	content, err := ioutil.ReadFile("FilesAndLists/youwin.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
