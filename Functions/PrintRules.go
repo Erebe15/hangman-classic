@@ -1,9 +1,15 @@
 package hangman
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func PrintRules() {
-	fmt.Println("Welcome to the game : Hangman. The goal of the game is to guess the word displayed.")
-	fmt.Println("You have 10 attempts, once the hangman is completed, it's lost. Good luck !")
-	fmt.Println("")
+	data, err := os.ReadFile("FilesAndLists/Welcome.txt")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	fmt.Println(string(data))
 }

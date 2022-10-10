@@ -5,11 +5,10 @@ import "fmt"
 func PrintWord(Word string, LetterList []string) {
 	for i := 0; i < len(Word); i++ {
 		if DoesContain(LetterList, string(Word[i])) == true {
-			fmt.Print(string(Word[i]))
+			fmt.Printf(" %s", string(Word[i]))
 		} else {
-			fmt.Print("_")
+			fmt.Print(" _")
 		}
 	}
-	println("")
-	println("")
+	fmt.Printf("\n")
 }

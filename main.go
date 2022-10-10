@@ -18,12 +18,12 @@ func main() {
 	choice := ""
 	for PlayAgain {
 		GameInProgress.Word = hangman.GetWord()
-		hangman.PrintRules()
 		fmt.Println("the secret word is:", GameInProgress.Word)
 		GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
 		fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
 		GameInProgress.Tries = 0
 		GameInProgress.JoseStates = hangman.GetJose()
+		hangman.PrintRules()
 		StartPlaying(GameInProgress)
 
 		fmt.Println("")
