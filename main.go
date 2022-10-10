@@ -13,9 +13,9 @@ type Game struct {
 
 func main() {
 	var GameInProgress Game
-	DontPlayAgain := false
+	PlayAgain := true
 	choice := ""
-	for !DontPlayAgain {
+	for PlayAgain {
 		GameInProgress.Word = hangman.GetWord()
 		hangman.PrintRules()
 		fmt.Println("the secret word is:", GameInProgress.Word)
@@ -27,12 +27,13 @@ func main() {
 
 		fmt.Println("")
 		fmt.Println("Do you want to play again ?")
-		fmt.Printf("Press 'y' to play again, or any other key to quit : ")
+		fmt.Printf("Enter 'y' to play again, or any other input to quit : ")
 		fmt.Scanln(&choice)
 		if choice == "Y" || choice == "y" {
-			DontPlayAgain = false
+			PlayAgain = true
 		} else {
-			DontPlayAgain = true
+			fmt.Println("See you later!")
+			PlayAgain = false
 		}
 	}
 }
