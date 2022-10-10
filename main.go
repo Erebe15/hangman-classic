@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"hangman/Functions"
+	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -13,6 +15,9 @@ type Game struct {
 }
 
 func main() {
+	c := exec.Command("clear")
+	c.Stdout = os.Stdout
+	c.Run()
 	var GameInProgress Game
 	PlayAgain := true
 	choice := ""
