@@ -15,8 +15,11 @@ func ChooseLetter(GameInProgress Game) string {
 		fmt.Printf("Choose a letter: ")
 		fmt.Scanln(&letter)
 		if letter == "save" || letter == "SAVE" {
-			Marshal(GameInProgress)
-			fmt.Println("Game saved in save.json")
+			docName := ""
+			fmt.Printf("Please enter the the save name : ")
+			fmt.Scanln(&docName)
+			GameInProgress.Marshal(docName + ".json")
+			fmt.Printf("Game saved in : %s\n", docName)
 			os.Exit(0)
 		}
 		letter = strings.ToUpper(letter)

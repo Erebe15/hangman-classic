@@ -9,9 +9,18 @@ import (
 )
 
 type Game struct {
-	Word                               string
-	Tries                              int
-	guess, RevealedLettres, JoseStates []string
+	Word                                     string
+	Tries                                    int
+	guess, RevealedLettres, JoseStates, save []string
+}
+
+func (Game) init() Game {
+	var GameInProgress Game
+	GameInProgress.Word = hangman.GetWord()
+	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+	GameInProgress.Tries = 0
+	GameInProgress.JoseStates = hangman.GetJose()
+	return GameInProgress
 }
 
 func main() {
@@ -21,13 +30,17 @@ func main() {
 	var GameInProgress Game
 	PlayAgain := true
 	choice := ""
+
+	if os.Args[1] == "--startwith" {
+		GameInProgress.readJSON(os.Args[2] + ".json")
+
+	} else {
+		GameInProgress = GameInProgress.init()
+	}
 	for PlayAgain {
-		GameInProgress.Word = hangman.GetWord()
+
 		fmt.Println("the secret word is:", GameInProgress.Word)
-		GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
 		fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
-		GameInProgress.Tries = 0
-		GameInProgress.JoseStates = hangman.GetJose()
 		hangman.PrintRules()
 		StartPlaying(GameInProgress)
 

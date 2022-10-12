@@ -6,26 +6,19 @@ import (
 	"os"
 )
 
-func Marshal(save Game) {
-	b, err := json.Marshal(save)
+func (GameInProgress *Game) Marshal(file string) {
+	b, err := json.Marshal(GameInProgress)
 	if err != nil {
 		fmt.Println("error", err)
 	}
-	os.WriteFile("save.json", b, 0644)
-	//os.WriteFile("save.txt", b, 0644)
-
+	os.WriteFile(file, b, 0644)
 }
 
-func PrintSave(stry string) {
-
-	content, err := os.ReadFile("save.json")
-	if err != nil {
-		fmt.Println("error", err)
-
-	}
-	var save Game
-	err = json.Unmarshal(content, &save)
+func (GameInProgress *Game) readJSON(file string) *Game {
+	jsonFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println("error", err)
 	}
+	json.NewDecoder(jsonFile).Decode(&GameInProgress)
+	return GameInProgress
 }
