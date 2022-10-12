@@ -47,6 +47,7 @@ func main() {
 		fmt.Printf("Enter 'y' to play again, or any other input to quit : ")
 		fmt.Scanln(&choice)
 		if strings.ToUpper(choice) == "Y" {
+			GameInProgress = GameInProgress.init()
 			PlayAgain = true
 		} else {
 			fmt.Println("See you later!")
