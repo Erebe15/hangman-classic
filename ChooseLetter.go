@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"hangman/Functions"
+	"os"
 	"strings"
 )
 
@@ -13,6 +14,14 @@ func ChooseLetter(GameInProgress Game) string {
 	for !letterValid {
 		fmt.Printf("Choose a letter: ")
 		fmt.Scanln(&letter)
+		if letter == "save" || letter == "SAVE" {
+			docName := ""
+			fmt.Printf("Please enter the the save name : ")
+			fmt.Scanln(&docName)
+			GameInProgress.Marshal(docName + ".json")
+			fmt.Printf("Game saved in : %s\n", docName)
+			os.Exit(0)
+		}
 		letter = strings.ToUpper(letter)
 		if !hangman.IsAlpha(letter) {
 			fmt.Printf("Please, select a letter, try again.\n\n")
