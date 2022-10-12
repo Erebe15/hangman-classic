@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"hangman/Functions"
+	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -16,7 +18,16 @@ func main() {
 	var GameInProgress Game
 	PlayAgain := true
 	choice := ""
-	hangman.PrintRules()
+	//hangman.PrintRules()
+	cmd := exec.Command("clear") //Linux example, its tested
+	cmd.Stdout = os.Stdout
+	err := cmd.Run()
+	if err != nil {
+		return
+	}
+	hangman.PrintAscii("<WELCOME>")
+	hangman.PrintAscii("<  TO   >")
+	hangman.PrintAscii("<HANGMAN>")
 	for PlayAgain {
 		GameInProgress.Word = hangman.GetWord()
 		println("*DEBUG* the secret word is " + GameInProgress.Word)
