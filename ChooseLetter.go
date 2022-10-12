@@ -33,7 +33,6 @@ func ChooseLetter(GameInProgress Game) string {
 			fmt.Println("___________________________________")
 		} else {
 			letterValid = true
-			println("letter: ", letter)
 			GameInProgress.guess = append(GameInProgress.guess, letter)
 		}
 	}
