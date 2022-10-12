@@ -21,7 +21,7 @@ func GetWord() string {
 	}
 	Words := strings.Split(string(data), "\n")
 	os := runtime.GOOS //runtime.GOOS -> linux, windows, darwin etc.
-	println("You are running on", os, "!")
+	println("*DEBUG* You are running on", os, "!")
 	if os == "windows" {
 		for i, word := range Words {
 			Words[i] = word[:len(word)-1]

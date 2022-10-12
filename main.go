@@ -21,7 +21,7 @@ func main() {
 		GameInProgress.Word = hangman.GetWord()
 		println("*DEBUG* the secret word is " + GameInProgress.Word)
 		GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
-		fmt.Printf("*DEBUG* Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
+		fmt.Printf("*DEBUG* early revealed lettres are: %s\n", GameInProgress.RevealedLettres)
 		GameInProgress.Tries = 0
 		GameInProgress.JoseStates = hangman.GetJose()
 		StartPlaying(GameInProgress)
