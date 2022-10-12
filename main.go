@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"hangman/Functions"
-	"os"
-	"os/exec"
 	"strings"
 )
 
@@ -18,13 +16,7 @@ func main() {
 	var GameInProgress Game
 	PlayAgain := true
 	choice := ""
-	//hangman.PrintRules()
-	cmd := exec.Command("clear") //Linux example, its tested
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		return
-	}
+	hangman.Clear()
 	hangman.PrintAscii("<WELCOME>")
 	hangman.PrintAscii("<  TO   >")
 	hangman.PrintAscii("<HANGMAN>")
