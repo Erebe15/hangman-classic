@@ -39,8 +39,6 @@ func main() {
 	}
 	for PlayAgain {
 
-		fmt.Println("the secret word is:", GameInProgress.Word)
-		fmt.Printf("Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
 		hangman.PrintRules()
 		StartPlaying(GameInProgress)
 
