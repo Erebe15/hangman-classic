@@ -28,8 +28,8 @@ func GetWord() string {
 		}
 	}
 	rand.Seed(time.Now().UnixNano())
-	word := strings.ToUpper(Words[rand.Intn(len(Words))])
-	return word
+	//word := strings.ToUpper(Words[rand.Intn(len(Words))])
+	return "TOURNESOL"
 
 	//	data, err := os.ReadFile("FilesAndLists/words.txt")
 	//	if err != nil {

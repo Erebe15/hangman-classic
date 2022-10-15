@@ -2,27 +2,25 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
-	"strings"
+	"time"
 )
 
-func StartPlaying(GameInProgress Game) { // go file in root to use structure "game" freely
-	hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
-
+func StartPlaying() {
+	time.Sleep(time.Second)
+	fmt.Print(MoveTo(w.ligns/2+2, 2))
 	for GameInProgress.Tries < 10 && !WordIsCompleted(GameInProgress) {
-		fmt.Printf("*DEBUG* Revealed lettres are: %s\n", GameInProgress.RevealedLettres)
-		fmt.Printf("*DEBUG* Already tried %s\n", GameInProgress.guess)
-		guess := ChooseLetter(GameInProgress)
-		GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, strings.ToUpper(guess))
 
-		if IsGoodAnswer(GameInProgress, guess) {
+		ClearTerminal()
+		UpdateWord()
+		guess := ChooseLetter(GameInProgress)
+
+		if IsGoodAnswer(guess) {
 			if len(guess) > 1 {
 				for _, i := range guess {
 					GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, string(i))
 				}
 			} else {
-				GameInProgress.guess = append(GameInProgress.guess, guess)
-				hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
+				GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, guess)
 			}
 		} else {
 			if len(guess) > 1 && GameInProgress.Tries < 9 {
@@ -33,12 +31,13 @@ func StartPlaying(GameInProgress Game) { // go file in root to use structure "ga
 			fmt.Println("Try again!")
 			PrintJose(GameInProgress)
 			if GameInProgress.Tries < 9 {
-				hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
+				PrintWord()
 			}
 			GameInProgress.Tries++
 		}
 	}
 	if WordIsCompleted(GameInProgress) {
-		hangman.PrintAscii("<YOU WIN>")
+		CreateWindows()
+		PrintAscii(w.ligns/4-4, w.colones*65/200-(9*12)/2, "YOU WIN")
 	}
 }

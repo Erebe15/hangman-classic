@@ -6,7 +6,7 @@ import (
 )
 
 func Clear() {
-	cmd := exec.Command("clear") //Linux example, its tested
+	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
 	err := cmd.Run()
 	if err != nil {

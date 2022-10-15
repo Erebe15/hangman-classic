@@ -11,13 +11,14 @@ func ChooseLetter(GameInProgress Game) string {
 	letterValid := false
 	var choice string
 	for !letterValid {
-		fmt.Printf("Choose a letter: ")
+		fmt.Printf("\x1B[34mChoose a letter: \x1B[0m")
 		fmt.Scanln(&letter)
 		letter = strings.ToUpper(letter)
 		if !hangman.IsAlpha(letter) {
 			fmt.Printf("Please, select a letter, try again.\n\n")
 			fmt.Println("___________________________________")
 		} else if len(letter) > 1 {
+			ClearTerminal()
 			fmt.Printf("do you think it's %s?\n", letter)
 			fmt.Printf("yes / no\n")
 			fmt.Scanln(&choice)
@@ -33,7 +34,6 @@ func ChooseLetter(GameInProgress Game) string {
 			fmt.Println("___________________________________")
 		} else {
 			letterValid = true
-			GameInProgress.guess = append(GameInProgress.guess, letter)
 		}
 	}
 	return strings.ToUpper(letter)
