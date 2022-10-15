@@ -30,9 +30,9 @@ func Init() (bool, string) {
 func welcome(l chan int) {
 	hangman.Clear()
 	time.Sleep(time.Second * 1)
-	PrintAscii(3, w.colones/2-(len("<WELCOME>")*12)/2, "\x1B[7mWELCOME")
+	PrintAscii(3, w.colones/2-(len("<WELCOME>")*12)/2, "WELCOME")
 	PrintAscii(12, w.colones/2-(len("<WELCOME>")*12)/2, "  TO   ")
-	PrintAscii(21, w.colones/2-(len("<WELCOME>")*12)/2, "HANGMAN\x1B[0m")
+	PrintAscii(21, w.colones/2-(len("<WELCOME>")*12)/2, "HANGMAN")
 	time.Sleep(time.Second * 2)
 	hangman.Clear()
 	l <- 1
