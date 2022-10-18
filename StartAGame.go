@@ -1,18 +1,34 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	hangman "hangman/Functions"
 )
 
+func WordIsCompleted() bool {
+	for _, w := range GameInProgress.Word {
+		if !hangman.DoesContain(GameInProgress.RevealedLettres, string(w)) {
+			return false
+		}
+	}
+	return true
+}
+
+func IsGoodAnswer(guess string) bool {
+	for _, l := range GameInProgress.Word {
+		if string(l) == guess || len(guess) > 1 && guess == GameInProgress.Word {
+			return true
+		}
+	}
+	return false
+}
+
 func StartPlaying() {
-	time.Sleep(time.Second)
-	fmt.Print(MoveTo(w.ligns/2+2, 2))
-	for GameInProgress.Tries < 10 && !WordIsCompleted(GameInProgress) {
+	GameInProgress.Status = 1
+	for GameInProgress.Tries < 10 && !WordIsCompleted() {
 
 		ClearTerminal()
 		UpdateWord()
-		guess := ChooseLetter(GameInProgress)
+		guess := ChooseLetter()
 
 		if IsGoodAnswer(guess) {
 			if len(guess) > 1 {
@@ -21,23 +37,28 @@ func StartPlaying() {
 				}
 			} else {
 				GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, guess)
+				GoodAnswerEffect()
 			}
 		} else {
 			if len(guess) > 1 && GameInProgress.Tries < 9 {
 				GameInProgress.Tries++
 			} else {
-				GameInProgress.guess = append(GameInProgress.guess, guess)
+				GameInProgress.Guess = append(GameInProgress.Guess, guess)
 			}
-			fmt.Println("Try again!")
-			PrintJose(GameInProgress)
-			if GameInProgress.Tries < 9 {
-				PrintWord()
-			}
+			WrongAnswEffect()
+			PrintJose()
 			GameInProgress.Tries++
 		}
 	}
-	if WordIsCompleted(GameInProgress) {
-		CreateWindows()
-		PrintAscii(w.ligns/4-4, w.colones*65/200-(9*12)/2, "YOU WIN")
+	if WordIsCompleted() {
+		GoodAnswerEffect()
+		ClearAllWindows()
+		GameInProgress.Status = 2
+		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU WIN")
+	} else {
+		WrongAnswEffect()
+		ClearAllWindows()
+		GameInProgress.Status = 3
+		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU LOST")
 	}
 }
