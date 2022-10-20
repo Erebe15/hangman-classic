@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	hangman "hangman/Functions"
-	"time"
 )
 
 var Esc = "\x1b"
@@ -40,27 +39,6 @@ func CreateWindows() {
 	fmt.Print(MoveTo(w.ligns/2+2, 2))
 }
 
-func WrongAnswEffect() {
-	for i := 0; i <= 6; i++ {
-		if i%2 == 1 {
-			fmt.Print("\x1B[31m")
-		} else {
-			fmt.Print("\x1B[0m")
-		}
-		CreateWindows()
-		time.Sleep(time.Second / 10)
-	}
-	fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[0m")
-}
-
-func GoodAnswerEffect() {
-	fmt.Print("\x1B[32m")
-	CreateWindows()
-	fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[0m")
-	time.Sleep(time.Second / 3)
-	CreateWindows()
-}
-
 func resizeWindow(ready chan int) {
 	hangman.Clear()
 	CreateWindows()
@@ -72,7 +50,7 @@ func resizeWindow(ready chan int) {
 			w.ligns, w.colones = hangman.Size()
 			fmt.Print("\x1B[0m")
 			CreateWindows()
-			UpdateWord()
+			UpdateS()
 		}
 	}
 }
@@ -98,26 +76,34 @@ func ClearAllWindows() {
 		}
 	}
 	for i := 2; i < w.ligns; i++ {
-		for j := w.colones*65/100 + 1; j < w.colones*65/100; j++ {
+		for j := w.colones*65/100 + 2; j < w.colones; j++ {
 			fmt.Print(MoveTo(i, j), " ")
 		}
 	}
 	fmt.Print(MoveTo(w.ligns/2+2, 2))
 }
 
-func UpdateWord() {
+func UpdateS() {
 	switch GameInProgress.Status {
 	case 1:
 		PrintWord()
+		DrawHangmanState()
 		if GameInProgress.RevealedLettres != nil {
 			fmt.Print(MoveTo(2, 2), "\x1B[32mREVEALED LETTERS : ", GameInProgress.RevealedLettres)
 		}
+		if GameInProgress.Guess != nil {
+			fmt.Print(MoveTo(2, w.colones*65/100+2), "\x1B[31mWRONG GUESS : ", GameInProgress.Guess)
+		}
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34mChoose a letter: \x1B[0m")
 	case 2:
 		ClearAllWindows()
-		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU WIN")
+		PrintAscii(w.ligns/4-3, w.colones*65/200-44, "YOU WIN")
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was ", GameInProgress.Word, "! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : ")
 	case 3:
 		ClearAllWindows()
-		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU LOST")
+		fmt.Print("\x1B[31m")
+		PrintAscii(w.ligns/4-3, w.colones*65/200-46, "YOU LOST")
+		DrawHangmanState()
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was ", GameInProgress.Word, "! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : ")
 	}
-	fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[0m")
 }

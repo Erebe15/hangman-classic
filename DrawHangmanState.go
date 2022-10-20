@@ -22,7 +22,7 @@ func PrintJose() {
 }
 
 func DrawHangmanState() {
-	if w.ligns >= 10000 && w.colones > 7 {
+	if w.ligns >= 25 && w.colones > 65 {
 		drawFancy()
 	} else {
 		PrintJose()
@@ -30,24 +30,46 @@ func DrawHangmanState() {
 }
 
 func drawFancy() {
-	if GameInProgress.Tries >= 1 {
-	}
-	if GameInProgress.Tries >= 2 {
-	}
-	if GameInProgress.Tries >= 3 {
-	}
-	if GameInProgress.Tries >= 4 {
-	}
-	if GameInProgress.Tries >= 5 {
-	}
-	if GameInProgress.Tries >= 6 {
-	}
-	if GameInProgress.Tries >= 7 {
-	}
-	if GameInProgress.Tries >= 8 {
-	}
-	if GameInProgress.Tries >= 9 {
-	}
-	if GameInProgress.Tries >= 10 {
+	switch GameInProgress.Tries {
+	case 10:
+		DrawLine(w.colones*85/100, w.ligns*55/100, w.colones*85/100+(w.ligns/10+2), w.ligns*55/100+(w.ligns/10+2), "█") // Right leg
+		fallthrough
+	case 9:
+		DrawLine(w.colones*85/100, w.ligns*55/100, w.colones*85/100-(w.ligns/10+1), w.ligns*55/100+(w.ligns/10+1), "█") // left leg
+		fallthrough
+	case 8:
+		DrawLine(w.colones*85/100, w.ligns*15/100+w.ligns*20/100+5, w.colones*85/100+(w.ligns/10+2), w.ligns*15/100+w.ligns*20/100+5+(w.ligns/10+2), "█") // Right arm
+		fallthrough
+	case 7:
+		DrawLine(w.colones*85/100, w.ligns*15/100+w.ligns*20/100+5, w.colones*85/100-(w.ligns/10+1), w.ligns*15/100+w.ligns*20/100+5+(w.ligns/10+1), "█") // Left arm
+		fallthrough
+	case 6:
+		DrawLine(w.colones*85/100, w.ligns*15/100+w.ligns*20/100+5, w.colones*85/100, w.ligns*55/100, "█") // Body
+		fallthrough
+	case 5:
+		if GameInProgress.Tries == 5 {
+			RemoveNode(w.colones*85/100, w.ligns*15/100+w.ligns*20/100) // Head
+		}
+		DrawHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		fallthrough
+	case 4:
+		DrawLine(w.colones*85/100, w.ligns*15/100, w.colones*85/100, w.ligns*15/100+w.ligns*20/100, "█") // Rope
+		if GameInProgress.Tries == 4 {
+			DrawNode(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		}
+		fallthrough
+	case 3:
+		DrawLine(w.colones*71/100, w.ligns*15/100, w.colones*87/100, w.ligns*15/100, "█") // Transverse
+		DrawLine(w.colones*73/100, w.ligns*25/100, w.colones*78/100, w.ligns*15/100, "█")
+		fallthrough
+	case 2:
+		DrawLine(w.colones*73/100, w.ligns*90/100, w.colones*73/100, w.ligns*15/100, "█") // Pole
+		DrawLine(w.colones*73/100-1, w.ligns*90/100, w.colones*73/100-1, w.ligns*15/100+1, "▒")
+		DrawLine(w.colones*73/100-2, w.ligns*90/100, w.colones*73/100-2, w.ligns*15/100, "█")
+		fallthrough
+	case 1:
+		DrawLine(w.colones*70/100, w.ligns*90/100, w.colones*95/100, w.ligns*90/100, "█") // Ground
+		DrawLine(w.colones*70/100, w.ligns*90/100+1, w.colones*95/100, w.ligns*90/100+1, "█")
+		DrawLine(w.colones*70/100+1, w.ligns*90/100+1, w.colones*95/100-1, w.ligns*90/100+1, "▒")
 	}
 }

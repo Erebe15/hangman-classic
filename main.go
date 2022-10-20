@@ -55,6 +55,8 @@ func welcome() {
 	PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
 	PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
 	PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
+	time.Sleep(time.Second)
+	SpawnCorde(20, 2, 60)
 	fmt.Print(MoveTo(0, 0))
 	time.Sleep(time.Second * 2)
 }
@@ -80,6 +82,7 @@ func main() {
 
 	Ready := make(chan int)
 	PlayAgain, choice := gameInit(Ready)
+	_ = <-Ready
 	for PlayAgain {
 		if GameInProgress.Status < 10 {
 			NewGame()
@@ -87,14 +90,10 @@ func main() {
 			GameInProgress.Status -= 10
 		}
 
-		fmt.Println(MoveTo(3, 2), "word:", GameInProgress.Word)
-		_ = <-Ready
 		StartPlaying()
 
-		ClearTerminal()
-		fmt.Print("\x1B[CDo you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : ")
 		fmt.Scanln(&choice)
-		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" {
+		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "" {
 			PlayAgain = true
 		} else {
 			PlayAgain = false

@@ -14,7 +14,6 @@ func ChooseLetter() string {
 	var choice string
 
 	for !ValidLetter {
-		fmt.Printf("\x1B[34mChoose a letter: \x1B[0m")
 		fmt.Scan(&guess)
 		guess = strings.ToUpper(guess)
 
@@ -28,6 +27,7 @@ func ChooseLetter() string {
 			Marshal("Saves/" + docName + ".json")
 			fmt.Printf("\x1B[CGame saved as : %s", docName)
 			time.Sleep(time.Second * 2)
+			hangman.Clear()
 			os.Exit(0)
 
 		case !hangman.IsAlpha(guess):

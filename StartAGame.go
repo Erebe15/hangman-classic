@@ -22,43 +22,47 @@ func IsGoodAnswer(guess string) bool {
 	return false
 }
 
-func StartPlaying() {
-	GameInProgress.Status = 1
-	for GameInProgress.Tries < 10 && !WordIsCompleted() {
-
-		ClearTerminal()
-		UpdateWord()
-		guess := ChooseLetter()
-
-		if IsGoodAnswer(guess) {
-			if len(guess) > 1 {
-				for _, i := range guess {
-					GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, string(i))
-				}
-			} else {
-				GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, guess)
-				GoodAnswerEffect()
+func ProcessGuess(guess string) {
+	if IsGoodAnswer(guess) {
+		if len(guess) > 1 {
+			for _, i := range guess {
+				GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, string(i))
 			}
 		} else {
-			if len(guess) > 1 && GameInProgress.Tries < 9 {
-				GameInProgress.Tries++
-			} else {
-				GameInProgress.Guess = append(GameInProgress.Guess, guess)
-			}
-			WrongAnswEffect()
-			PrintJose()
-			GameInProgress.Tries++
+			GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, guess)
+			GoodAnswerEffect()
 		}
+	} else {
+		WrongAnswerEffect()
+		if len(guess) > 1 && GameInProgress.Tries < 9 {
+			GameInProgress.Tries++
+			HangmanAnimation()
+		} else {
+			GameInProgress.Guess = append(GameInProgress.Guess, guess)
+		}
+		GameInProgress.Tries++
+		HangmanAnimation()
 	}
+}
+
+func StartPlaying() {
+	GameInProgress.Status = 1
+
+	for GameInProgress.Tries < 10 && !WordIsCompleted() {
+		ClearTerminal()
+		UpdateS()
+		guess := ChooseLetter()
+		ProcessGuess(guess)
+	}
+
 	if WordIsCompleted() {
 		GoodAnswerEffect()
 		ClearAllWindows()
 		GameInProgress.Status = 2
-		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU WIN")
+		PrintAscii(w.ligns/4-3, w.colones*65/200-42, "YOU WIN")
 	} else {
-		WrongAnswEffect()
-		ClearAllWindows()
+		WrongAnswerEffect()
 		GameInProgress.Status = 3
-		PrintAscii(w.ligns/4-4, w.colones*65/200-42, "YOU LOST")
 	}
+	UpdateS()
 }
