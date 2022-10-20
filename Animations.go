@@ -41,6 +41,9 @@ func HangmanAnimation() {
 				DrawLine(w.colones*70/100, i, w.colones*95/100, i, " ") // Ground
 				DrawLine(w.colones*70/100, i+1, w.colones*95/100, i+1, " ")
 			}
+			DrawLine(w.colones*70/100, w.ligns*90/100, w.colones*95/100, w.ligns*90/100, "█") // Ground
+			DrawLine(w.colones*70/100, w.ligns*90/100+1, w.colones*95/100, w.ligns*90/100+1, "█")
+			DrawLine(w.colones*70/100+1, w.ligns*90/100+1, w.colones*95/100-1, w.ligns*90/100+1, "▒")
 		case 2:
 			for i := 0; i <= w.ligns*75/100; i++ {
 				DrawLine(w.colones*73/100, w.ligns*90/100, w.colones*73/100, w.ligns*90/100-i, "█") // Pole
@@ -50,15 +53,20 @@ func HangmanAnimation() {
 			}
 		case 3:
 			for i := 314 / 4; i >= 0; i-- {
-				DrawLine(w.colones*73/100, w.ligns*90/100, w.colones*73/100, w.ligns*15/100, "█") // Pole
+				DrawLine(w.colones*73/100, w.ligns*90/100, w.colones*73/100, w.ligns*15/100, "█")
 				DrawLine(w.colones*73/100-1, w.ligns*90/100, w.colones*73/100-1, w.ligns*15/100+1, "▒")
 				DrawLine(w.colones*73/100-2, w.ligns*90/100, w.colones*73/100-2, w.ligns*15/100, "█")
 				DrawLine(w.colones*71/100, w.ligns*15/100, (w.colones*71/100)+int(math.Cos(float64(i)/50)*float64(w.colones*16/100)), w.ligns*15/100+int(math.Sin(float64(i)/50)*float64(w.colones*8/100)), "█")
 				time.Sleep(time.Millisecond)
 				DrawLine(w.colones*71/100, w.ligns*15/100, (w.colones*71/100)+int(math.Cos(float64(i)/50)*float64(w.colones*16/100)), w.ligns*15/100+int(math.Sin(float64(i)/50)*float64(w.colones*8/100)), " ")
 			}
+			DrawLine(w.colones*71/100, w.ligns*15/100, w.colones*87/100, w.ligns*15/100, "█") // Transverse
+			DrawLine(w.colones*73/100, w.ligns*25/100, w.colones*78/100, w.ligns*15/100, "█")
 		case 4:
 			SpawnCorde(w.colones*85/100, w.ligns*15/100, 20)
+		case 5:
+			RemoveNode(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+			DrawHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
 		case 6:
 			for i := w.ligns*15/100 + w.ligns*20/100 + 5; i <= w.ligns*55/100; i++ {
 				DrawLine(w.colones*85/100, w.ligns*15/100+w.ligns*20/100+5, w.colones*85/100, i, "█") // Body
