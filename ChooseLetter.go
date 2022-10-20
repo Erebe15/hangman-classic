@@ -14,18 +14,20 @@ func ChooseLetter() string {
 	var choice string
 
 	for !ValidLetter {
+		UpdateS()
 		fmt.Scan(&guess)
+		fmt.Print("\x1B[?25l")
 		guess = strings.ToUpper(guess)
 
 		switch {
 
 		case guess == "STOP":
 			docName := ""
-			fmt.Printf("\x1B[CPlease the the save name : ")
+			fmt.Printf("\x1B[CPlease the the save name : \x1B[?25h")
 			fmt.Scanln(&docName)
 			GameInProgress.Status += 10
 			Marshal("Saves/" + docName + ".json")
-			fmt.Printf("\x1B[CGame saved as : %s", docName)
+			fmt.Printf("\x1B[?25l\x1B[CGame saved as : %s", docName)
 			time.Sleep(time.Second * 2)
 			hangman.Clear()
 			os.Exit(0)
@@ -36,7 +38,7 @@ func ChooseLetter() string {
 
 		case len(guess) > 1:
 			ClearTerminal()
-			fmt.Printf("do you think it's %s?\n\x1B[C\x1B[32myes\x1B[0m / \x1B[31mno\x1B[0m\n\x1B[C", guess)
+			fmt.Printf("do you think it's %s?\n\x1B[C\x1B[32myes\x1B[0m / \x1B[31mno\x1B[0m\n\x1B[C\x1B[?25h", guess)
 			fmt.Scanln(&choice)
 			if strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "Y" {
 				ValidLetter = true

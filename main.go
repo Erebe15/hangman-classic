@@ -49,18 +49,6 @@ func gameInit(Ready chan int) (bool, string) {
 	return true, ""
 }
 
-func welcome() {
-	w.ligns, w.colones = hangman.Size()
-	hangman.Clear()
-	PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
-	PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
-	PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
-	time.Sleep(time.Second)
-	SpawnCorde(20, 2, 60)
-	fmt.Print(MoveTo(0, 0))
-	time.Sleep(time.Second * 2)
-}
-
 func NewGame() {
 	GameInProgress.Word = hangman.GetWord()
 	GameInProgress.Tries = 0
@@ -93,12 +81,13 @@ func main() {
 		StartPlaying()
 
 		fmt.Scanln(&choice)
+		fmt.Print("\x1B[?25l")
 		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "" {
 			PlayAgain = true
 		} else {
 			PlayAgain = false
 			fmt.Print("\x1B[Csee you later!")
-			time.Sleep(1 * time.Second)
+			time.Sleep(time.Second)
 			hangman.Clear()
 		}
 	}

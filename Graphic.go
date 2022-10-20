@@ -94,16 +94,16 @@ func UpdateS() {
 		if GameInProgress.Guess != nil {
 			fmt.Print(MoveTo(2, w.colones*65/100+2), "\x1B[31mWRONG GUESS : ", GameInProgress.Guess)
 		}
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34mChoose a letter: \x1B[0m")
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34mChoose a letter: \x1B[0m\x1B[?25h")
 	case 2:
 		ClearAllWindows()
 		PrintAscii(w.ligns/4-3, w.colones*65/200-44, "YOU WIN")
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was ", GameInProgress.Word, "! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : ")
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was \x1B[32m", GameInProgress.Word, "\x1B[0m! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : \x1B[?25h")
 	case 3:
 		ClearAllWindows()
 		fmt.Print("\x1B[31m")
 		PrintAscii(w.ligns/4-3, w.colones*65/200-46, "YOU LOST")
 		DrawHangmanState()
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was ", GameInProgress.Word, "! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : ")
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[CThe word was \x1B[31m", GameInProgress.Word, "\x1B[0m! Do you want to play again ?\n\x1B[C Enter 'y' to play again, or any other input to quit : \x1B[?25h")
 	}
 }

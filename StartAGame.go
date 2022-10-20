@@ -46,11 +46,11 @@ func ProcessGuess(guess string) {
 }
 
 func StartPlaying() {
-	GameInProgress.Status = 1
+	GameInProgress.Status = 1 // playing
 
 	for GameInProgress.Tries < 10 && !WordIsCompleted() {
+
 		ClearTerminal()
-		UpdateS()
 		guess := ChooseLetter()
 		ProcessGuess(guess)
 	}
@@ -58,11 +58,9 @@ func StartPlaying() {
 	if WordIsCompleted() {
 		GoodAnswerEffect()
 		ClearAllWindows()
-		GameInProgress.Status = 2
-		PrintAscii(w.ligns/4-3, w.colones*65/200-42, "YOU WIN")
+		GameInProgress.Status = 2 // won game
 	} else {
-		WrongAnswerEffect()
-		GameInProgress.Status = 3
+		GameInProgress.Status = 3 // lost game
 	}
 	UpdateS()
 }

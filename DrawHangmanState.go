@@ -50,7 +50,13 @@ func drawFancy() {
 		if GameInProgress.Tries == 5 {
 			RemoveNode(w.colones*85/100, w.ligns*15/100+w.ligns*20/100) // Head
 		}
-		DrawHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		if GameInProgress.Tries >= 10 {
+			DrawDeadHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		} else if GameInProgress.Tries == 9 {
+			DrawFreakOutHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		} else {
+			DrawHead(w.colones*85/100, w.ligns*15/100+w.ligns*20/100)
+		}
 		fallthrough
 	case 4:
 		DrawLine(w.colones*85/100, w.ligns*15/100, w.colones*85/100, w.ligns*15/100+w.ligns*20/100, "█") // Rope
