@@ -1,39 +1,66 @@
 package main
 
 import (
-	"fmt"
 	hangman "hangman/Functions"
-	"strings"
 )
 
-func StartPlaying(GameInProgress Game) { // go file in root to use structure "game" freely
-
-	hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
-	for GameInProgress.Tries < 10 && !WordIsCompleted(GameInProgress) {
-		guess := ChooseLetter(GameInProgress)
-		GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, strings.ToUpper(guess))
-
-		if IsGoodAnswer(GameInProgress, guess) {
-			if len(guess) > 1 {
-				for _, i := range guess {
-					GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, string(i))
-				}
-			} else {
-				hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
-			}
-		} else {
-			if len(guess) > 1 && GameInProgress.Tries < 9 {
-				GameInProgress.Tries++
-			}
-			fmt.Println("Try again!")
-			PrintJose(GameInProgress)
-			if GameInProgress.Tries < 9 {
-				hangman.PrintWord(GameInProgress.Word, GameInProgress.RevealedLettres)
-			}
-			GameInProgress.Tries++
+func WordIsCompleted() bool {
+	for _, w := range GameInProgress.Word {
+		if !hangman.DoesContain(GameInProgress.RevealedLettres, string(w)) {
+			return false
 		}
 	}
-	if WordIsCompleted(GameInProgress) {
-		hangman.PrintYouWin()
+	return true
+}
+
+func IsGoodAnswer(guess string) bool {
+	for _, l := range GameInProgress.Word {
+		if string(l) == guess || len(guess) > 1 && guess == GameInProgress.Word {
+			return true
+		}
 	}
+	return false
+}
+
+func ProcessGuess(guess string) {
+	if IsGoodAnswer(guess) {
+		if len(guess) > 1 {
+			for _, i := range guess {
+				GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, string(i))
+			}
+		} else {
+			GameInProgress.RevealedLettres = append(GameInProgress.RevealedLettres, guess)
+			GoodAnswerEffect()
+		}
+	} else {
+		WrongAnswerEffect()
+		if len(guess) > 1 && GameInProgress.Tries < 9 {
+			GameInProgress.Tries++
+			HangmanAnimation()
+		} else {
+			GameInProgress.Guess = append(GameInProgress.Guess, guess)
+		}
+		GameInProgress.Tries++
+		HangmanAnimation()
+	}
+}
+
+func StartPlaying() {
+	GameInProgress.Status = 1 // playing
+
+	for GameInProgress.Tries < 10 && !WordIsCompleted() {
+
+		ClearTerminal()
+		guess := ChooseLetter()
+		ProcessGuess(guess)
+	}
+
+	if WordIsCompleted() {
+		GoodAnswerEffect()
+		ClearAllWindows()
+		GameInProgress.Status = 2 // won game
+	} else {
+		GameInProgress.Status = 3 // lost game
+	}
+	UpdateS()
 }

@@ -4,32 +4,22 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
-	"runtime"
 	"strings"
 	"time"
 )
 
 func GetWord() string {
-	if len(os.Args) == 1 {
-		fmt.Println("Please select a file as argument")
+	rand.Seed(time.Now().UnixNano())
+	sep := []byte{13, 10}
+	data, err := os.ReadFile("FilesAndLists/words.txt")
+	if err != nil {
+		fmt.Println(err)
 		os.Exit(1)
-	} else {
-		data, err := os.ReadFile(string(os.Args[1]))
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		Words := strings.Split(string(data), "\n")
-		os := runtime.GOOS //runtime.GOOS -> linux, windows, darwin etc.
-		println("You are running on", os, "!")
-		if os == "windows" {
-			for i, word := range Words {
-				Words[i] = word[:len(word)-1]
-			}
-		}
-		rand.Seed(time.Now().UnixNano())
-		word := strings.ToUpper(Words[rand.Intn(len(Words))])
-		return word
 	}
-	return ""
+	if len(os.Args) == 2 {
+		data, _ = os.ReadFile("FilesAndLists/" + string(os.Args[1]))
+	}
+	Words := strings.Split(string(data), string(sep))
+	word := strings.ToUpper(Words[rand.Intn(len(Words))])
+	return word
 }

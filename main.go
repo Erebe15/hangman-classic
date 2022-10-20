@@ -1,56 +1,94 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"hangman/Functions"
-	"os"
-	"os/exec"
+	hangman "hangman/Functions"
 	"strings"
+	"time"
 )
 
+/*
+
+Game Status:
+
+1 In game
+2 Won
+3 Lost
+11 Saved playing
+12 Saved won
+13 Saved lost
+
+*/
+
 type Game struct {
-	Word                                     string
-	Tries                                    int
-	guess, RevealedLettres, JoseStates, save []string
+	Word                   string
+	Tries, Status          int
+	Guess, RevealedLettres []string
 }
 
-func (Game) init() Game {
-	var GameInProgress Game
+type Window struct {
+	ligns, colones int
+}
+
+var GameInProgress Game
+var w Window
+var Save string
+
+func init() {
+	const (
+		defaultSave = ""
+		usage       = "the name of the save file"
+	)
+	flag.StringVar(&Save, "startWith", defaultSave, usage)
+	flag.StringVar(&Save, "s", defaultSave, usage+" (shorthand)")
+}
+
+func gameInit(Ready chan int) (bool, string) {
+	go resizeWindow(Ready)
+	return true, ""
+}
+
+func NewGame() {
 	GameInProgress.Word = hangman.GetWord()
-	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
 	GameInProgress.Tries = 0
-	GameInProgress.JoseStates = hangman.GetJose()
-	return GameInProgress
+	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+	GameInProgress.Status = 1
+	GameInProgress.Guess = nil
+	ClearAllWindows()
 }
 
 func main() {
-	c := exec.Command("clear")
-	c.Stdout = os.Stdout
-	c.Run()
-	var GameInProgress Game
-	PlayAgain := true
-	choice := ""
 
-	if os.Args[1] == "--startwith" {
-		GameInProgress.readJSON(os.Args[2] + ".json")
-
+	flag.Parse()
+	if Save != "" {
+		readJSON("Saves/" + Save + ".json")
+		time.Sleep(time.Second * 3)
 	} else {
-		GameInProgress = GameInProgress.init()
+		welcome()
 	}
+
+	Ready := make(chan int)
+	PlayAgain, choice := gameInit(Ready)
+	_ = <-Ready
 	for PlayAgain {
+		if GameInProgress.Status < 10 {
+			NewGame()
+		} else {
+			GameInProgress.Status -= 10
+		}
 
-		hangman.PrintRules()
-		StartPlaying(GameInProgress)
+		StartPlaying()
 
-		fmt.Println("")
-		fmt.Println("Do you want to play again ?")
-		fmt.Printf("Enter 'y' to play again, or any other input to quit : ")
 		fmt.Scanln(&choice)
-		if strings.ToUpper(choice) == "Y" {
+		fmt.Print("\x1B[?25l")
+		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "" {
 			PlayAgain = true
 		} else {
-			fmt.Println("See you later!")
 			PlayAgain = false
+			fmt.Print("\x1B[Csee you later!")
+			time.Sleep(time.Second)
+			hangman.Clear()
 		}
 	}
 }
