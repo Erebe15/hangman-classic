@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	hangman "hangman/Functions"
+	"os"
 	"strings"
 	"time"
 )
@@ -25,6 +26,13 @@ type Game struct {
 	Word                   string
 	Tries, Status          int
 	Guess, RevealedLettres []string
+	set                    Settings
+}
+
+type Settings struct {
+	LanguageTxt []string
+	Words       string
+	Difficulty  int
 }
 
 type Window struct {
@@ -36,6 +44,19 @@ var w Window
 var Save string
 
 func init() {
+	if len(os.Args) == 2 {
+		switch os.Args[1] {
+		case "mots.txt":
+			SelectLanguage("Francais")
+		case "слова.txt":
+			SelectLanguage("Russian")
+		default:
+			SelectLanguage("English")
+		}
+	} else {
+		SelectLanguage("English")
+	}
+
 	const (
 		defaultSave = ""
 		usage       = "the name of the save file"
@@ -44,17 +65,35 @@ func init() {
 	flag.StringVar(&Save, "s", defaultSave, usage+" (shorthand)")
 }
 
+func SelectLanguage(language string) {
+	data, err := os.ReadFile("FilesAndLists/Languages/" + language + ".txt")
+	if err != nil {
+		panic(err)
+	}
+	sep := []byte{13, 10}
+	GameInProgress.set.LanguageTxt = strings.Split(string(data), string(sep))
+	switch language {
+	case "English":
+		GameInProgress.set.Words = "words.txt"
+	case "Francais":
+		GameInProgress.set.Words = "mots.txt"
+	case "Russian":
+		GameInProgress.set.Words = "слова.txt"
+	}
+}
+
 func gameInit(Ready chan int) (bool, string) {
 	go resizeWindow(Ready)
 	return true, ""
 }
 
 func NewGame() {
-	GameInProgress.Word = hangman.GetWord()
+	GameInProgress.Word = GetWord()
 	GameInProgress.Tries = 0
 	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
 	GameInProgress.Status = 1
 	GameInProgress.Guess = nil
+	GameInProgress.set.Difficulty = 1
 	ClearAllWindows()
 }
 
@@ -82,11 +121,11 @@ func main() {
 
 		fmt.Scanln(&choice)
 		fmt.Print("\x1B[?25l")
-		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "" {
+		if strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[19] || strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[20] || strings.ToUpper(choice) == "" {
 			PlayAgain = true
 		} else {
 			PlayAgain = false
-			fmt.Print("\x1B[Csee you later!")
+			fmt.Print("\x1B[C", GameInProgress.set.LanguageTxt[26])
 			time.Sleep(time.Second)
 			hangman.Clear()
 		}

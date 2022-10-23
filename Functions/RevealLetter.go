@@ -3,20 +3,45 @@ package hangman
 import (
 	"math/rand"
 	"time"
+	"unicode/utf8"
 )
+
+func DoesContain(list []string, n string) bool {
+	for _, l := range list {
+		if l == n {
+			return true
+		}
+	}
+	return false
+}
+
+func RuneContains(list []rune, n rune) bool {
+	for _, a := range list {
+		if a == n {
+			return true
+		}
+	}
+	return false
+}
 
 func RevealStartLettres(WordChosen string) []string { // select random lettres from the word for the start
 	rand.Seed(time.Now().UnixNano())
-	var ChosenLettres []string
-	NumberOfRevealed := (len(WordChosen) / 2) - 1
+	var RevealLetters []string
+	var LettersOfWord []string
+	NumberOfRevealed := (utf8.RuneCountInString(WordChosen) / 2) - 1
 
-	if len(WordChosen) >= 3 {
-		for len(ChosenLettres) < NumberOfRevealed {
-			RndLetter := string(WordChosen[rand.Intn(len(WordChosen))])
-			if !DoesContain(ChosenLettres, RndLetter) {
-				ChosenLettres = append(ChosenLettres, RndLetter)
+	for _, l := range WordChosen {
+		LettersOfWord = append(LettersOfWord, string(l))
+	}
+
+	if utf8.RuneCountInString(WordChosen) >= 3 {
+		for len(RevealLetters) < NumberOfRevealed {
+			RndLetter := LettersOfWord[rand.Intn(len(LettersOfWord))]
+			if !DoesContain(RevealLetters, RndLetter) {
+				RevealLetters = append(RevealLetters, RndLetter)
 			}
 		}
 	}
-	return ChosenLettres
+
+	return RevealLetters
 }

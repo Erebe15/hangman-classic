@@ -1,7 +1,8 @@
-package hangman
+package main
 
 import (
 	"fmt"
+	"hangman/Functions"
 	"math/rand"
 	"os"
 	"strings"
@@ -11,13 +12,11 @@ import (
 func GetWord() string {
 	rand.Seed(time.Now().UnixNano())
 	sep := []byte{13, 10}
-	data, err := os.ReadFile("FilesAndLists/words.txt")
+	data, err := os.ReadFile("FilesAndLists/WordLists/" + GameInProgress.set.Words)
 	if err != nil {
-		fmt.Println(err)
+		hangman.Clear()
+		fmt.Println("error:", err)
 		os.Exit(1)
-	}
-	if len(os.Args) == 2 {
-		data, _ = os.ReadFile("FilesAndLists/" + string(os.Args[1]))
 	}
 	Words := strings.Split(string(data), string(sep))
 	word := strings.ToUpper(Words[rand.Intn(len(Words))])

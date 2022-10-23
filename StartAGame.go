@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	hangman "hangman/Functions"
 )
 
@@ -47,7 +48,7 @@ func ProcessGuess(guess string) {
 
 func StartPlaying() {
 	GameInProgress.Status = 1 // playing
-
+	fmt.Print(MoveTo(3, 2), "the word: ", GameInProgress.Word)
 	for GameInProgress.Tries < 10 && !WordIsCompleted() {
 
 		ClearTerminal()

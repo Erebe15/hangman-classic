@@ -1,0 +1,27 @@
+BIENVENUE
+DANS
+MOT
+TERMINAL
+HANGMAN
+LETTRES RÉVÉLÉES : 
+LETTRES NON PRESENTES : 
+Choisissez une lettre: 
+GAGNE
+PERDU
+Le mot était
+Voulez-vous rejouer ? 
+Entre 'y' pour rejouer, ou un autre caractère pour quiter
+Veuillez enter le nom de la sauvegarde : 
+Partie sauvegarder en tant que %s
+Veuillez selectioner une lettre
+Pensez vous que le mot est %s
+oui
+non
+OUI
+O
+NON
+N
+réponse non valide
+Cette lettre a déjà été révélée
+Cette lettre a déjà été choisie
+A la revoyure!
