@@ -98,18 +98,21 @@ func NewGame() {
 }
 
 func main() {
-
+	w.ligns, w.colones = hangman.Size()
 	flag.Parse()
 	if Save != "" {
 		readJSON("Saves/" + Save + ".json")
 		time.Sleep(time.Second * 3)
-	} else {
-		welcome()
+	} else if w.colones >= 155 && w.ligns >= 41 {
+		WelcomeArrive()
+		MainMenu()
+		WelcomeFadeAway()
 	}
 
-	Ready := make(chan int)
-	PlayAgain, choice := gameInit(Ready)
-	_ = <-Ready
+	WindowsReady := make(chan int)
+	PlayAgain, choice := gameInit(WindowsReady)
+	_ = <-WindowsReady
+
 	for PlayAgain {
 		if GameInProgress.Status < 10 {
 			NewGame()
@@ -121,11 +124,11 @@ func main() {
 
 		fmt.Scanln(&choice)
 		fmt.Print("\x1B[?25l")
-		if strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[19] || strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[20] || strings.ToUpper(choice) == "" {
+		if strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[19] || strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[20] || strings.ToUpper(choice) == "" { // YES Y
 			PlayAgain = true
 		} else {
 			PlayAgain = false
-			fmt.Print("\x1B[C", GameInProgress.set.LanguageTxt[26])
+			fmt.Print("\x1B[C", GameInProgress.set.LanguageTxt[26]) // see you later
 			time.Sleep(time.Second)
 			hangman.Clear()
 		}

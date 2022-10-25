@@ -179,7 +179,7 @@ func DrawFreakOutHead(x, y int) {
 	fmt.Print("\x1B[B\x1B[7D █▄▄▄█ ")
 }
 
-func welcome() {
+func WelcomeArrive() {
 	w.ligns, w.colones = hangman.Size()
 	hangman.Clear()
 	time.Sleep(time.Second)
@@ -195,15 +195,21 @@ func welcome() {
 	PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[0])*12)/2, GameInProgress.set.LanguageTxt[0])
 	PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[1])*12)/2, GameInProgress.set.LanguageTxt[1])
 	PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[4])*12)/2, GameInProgress.set.LanguageTxt[4])
-	SpawnCorde(20, 2, 60)
+	SpawnCorde(20, 1, 60)
+}
+
+func WelcomeFadeAway() {
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
+		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[28])
+		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[29])
+		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[30])
 		PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[0])*12)/2, GameInProgress.set.LanguageTxt[0])
 		fmt.Printf("\x1B[38;5;%dm", i)
 		PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[1])*12)/2, GameInProgress.set.LanguageTxt[1])
 		fmt.Printf("\x1B[38;5;%dm", i)
 		PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[4])*12)/2, GameInProgress.set.LanguageTxt[4])
-		time.Sleep(time.Millisecond * 80)
+		time.Sleep(time.Millisecond * 50)
 	}
 	fmt.Printf("\x1B[38;5;0m")
 	PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[0])*12)/2, GameInProgress.set.LanguageTxt[0])
@@ -213,8 +219,8 @@ func welcome() {
 	PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[4])*12)/2, GameInProgress.set.LanguageTxt[4])
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
-		DrawNode(20, w.ligns*60/100+2)
-		DrawLine(20, 2, 20, w.ligns*60/100+2, "█")
+		DrawNode(20, w.ligns*60/100+1)
+		DrawLine(20, 1, 20, w.ligns*60/100+1, "█")
 		time.Sleep(time.Millisecond * 50)
 	}
 	fmt.Printf("\x1B[0m")

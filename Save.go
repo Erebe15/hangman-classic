@@ -22,3 +22,6 @@ func readJSON(file string) {
 	json.NewDecoder(jsonFile).Decode(&GameInProgress)
 	err = os.Remove("Saves")
 }
+
+func Saves() {
+}
