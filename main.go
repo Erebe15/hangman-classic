@@ -90,7 +90,7 @@ func gameInit(Ready chan int) (bool, string) {
 func NewGame() {
 	GameInProgress.Word = GetWord()
 	GameInProgress.Tries = 0
-	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+	GameInProgress.RevealedLettres = RevealStartLettres(GameInProgress.Word)
 	GameInProgress.Status = 1
 	GameInProgress.Guess = nil
 	GameInProgress.set.Difficulty = 1

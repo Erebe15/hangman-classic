@@ -59,11 +59,11 @@ func ChooseLetter() string {
 			}
 			ClearTerminal()
 
-		case hangman.DoesContain(GameInProgress.RevealedLettres, guess):
+		case DoesContain(GameInProgress.RevealedLettres, guess):
 			ClearTerminal()
 			fmt.Print("\n\a\x1B[C\x1B[31m", GameInProgress.set.LanguageTxt[24], "\x1B[0m\n\x1B[C") // This letter has already been Revealed
 
-		case hangman.DoesContain(GameInProgress.Guess, guess):
+		case DoesContain(GameInProgress.Guess, guess):
 			ClearTerminal()
 			fmt.Print("\n\a\x1B[C\x1B[31m", GameInProgress.set.LanguageTxt[25], "\x1B[0m\n\x1B[C") // This letter has already been chosen
 

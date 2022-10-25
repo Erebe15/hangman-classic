@@ -62,7 +62,7 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 		fc()
 	case choice == "4":
 		fd()
-	case !hangman.DoesContain(ValidInput, choice):
+	case !DoesContain(ValidInput, choice):
 		fe()
 	}
 }

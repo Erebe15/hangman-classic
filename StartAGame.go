@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
 )
 
 func WordIsCompleted() bool {
 	for _, w := range GameInProgress.Word {
-		if !hangman.DoesContain(GameInProgress.RevealedLettres, string(w)) {
+		if !DoesContain(GameInProgress.RevealedLettres, string(w)) {
 			return false
 		}
 	}

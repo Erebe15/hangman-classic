@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
 	"os"
 	"strings"
 	"unicode/utf8"
@@ -15,7 +14,7 @@ func PrintWord() {
 		LettersOfWord = append(LettersOfWord, string(l))
 	}
 	for _, l := range LettersOfWord {
-		if hangman.DoesContain(GameInProgress.RevealedLettres, l) == true {
+		if DoesContain(GameInProgress.RevealedLettres, l) == true {
 			if utf8.RuneCountInString(GameInProgress.Word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
 				display += " " + l
 			} else {

@@ -1,4 +1,4 @@
-package hangman
+package main
 
 import (
 	"math/rand"
@@ -15,20 +15,16 @@ func DoesContain(list []string, n string) bool {
 	return false
 }
 
-func RuneContains(list []rune, n rune) bool {
-	for _, a := range list {
-		if a == n {
-			return true
-		}
-	}
-	return false
-}
-
 func RevealStartLettres(WordChosen string) []string { // select random lettres from the word for the start
 	rand.Seed(time.Now().UnixNano())
 	var RevealLetters []string
 	var LettersOfWord []string
-	NumberOfRevealed := (utf8.RuneCountInString(WordChosen) / 2) - 1
+	var NumberOfRevealed int
+	if GameInProgress.set.Difficulty >= 2 {
+		NumberOfRevealed = (utf8.RuneCountInString(WordChosen) / 2) - 1
+	} else {
+		NumberOfRevealed = 0
+	}
 
 	for _, l := range WordChosen {
 		LettersOfWord = append(LettersOfWord, string(l))
