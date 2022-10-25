@@ -68,7 +68,7 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 }
 
 func LanguageMenu() {
-	Menu4(39, 40, 41, 34, LanguageMenuEn, LanguageMenuFr, LanguageMenuRu, LanguageMenu, LanguageMenu)
+	Menu4(39, 40, 41, 33, LanguageMenuEn, LanguageMenuFr, LanguageMenuRu, OptionsMenu, LanguageMenu)
 }
 
 func DifficultyMenu() {

@@ -201,9 +201,9 @@ func WelcomeArrive() {
 func WelcomeFadeAway() {
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
-		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[28])
-		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[29])
-		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[30])
+		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[28])/2), GameInProgress.set.LanguageTxt[28])
+		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[29])/2), GameInProgress.set.LanguageTxt[29])
+		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[30])/2), GameInProgress.set.LanguageTxt[30])
 		PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[0])*12)/2, GameInProgress.set.LanguageTxt[0])
 		fmt.Printf("\x1B[38;5;%dm", i)
 		PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[1])*12)/2, GameInProgress.set.LanguageTxt[1])

@@ -31,7 +31,7 @@ see you later!
 (4)   Q U I T
 (1)   L A N G U A G E S
 (2)   D I F F I C U L T Y
-(3)   ← B A C K
+(3)   ◀══ B A C K
  
 (1)   E Z
 (2)   K I N D A   H A R D

@@ -31,7 +31,7 @@ A la revoyure!
 (4)   Q U I T T E R
 (1)   L A N G U E S
 (2)   D I F F I C U L T É
-(3)   ← R E T O U R
+(3)   ◀══ R E T O U R
  
 (1)   F A C I L E
 (2)   A S S E Z   D U R
