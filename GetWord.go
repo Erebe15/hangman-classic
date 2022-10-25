@@ -27,7 +27,7 @@ func GetWord() string {
 	var word string
 	Words := strings.Split(string(data), string(sep))
 	word = strings.ToUpper(Words[rand.Intn(len(Words))])
-	for utf8.RuneCountInString(word) < 7 && GameInProgress.set.Difficulty >= 3 {
+	for utf8.RuneCountInString(word) < 8 && GameInProgress.set.Difficulty >= 3 {
 		word = strings.ToUpper(Words[rand.Intn(len(Words))])
 	}
 	return word

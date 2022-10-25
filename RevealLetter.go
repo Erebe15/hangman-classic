@@ -21,9 +21,9 @@ func RevealStartLettres(WordChosen string) []string { // select random lettres f
 	var LettersOfWord []string
 	var NumberOfRevealed int
 	if GameInProgress.set.Difficulty >= 2 {
-		NumberOfRevealed = (utf8.RuneCountInString(WordChosen) / 2) - 1
-	} else {
 		NumberOfRevealed = 0
+	} else {
+		NumberOfRevealed = (utf8.RuneCountInString(WordChosen) / 2) - 1
 	}
 
 	for _, l := range WordChosen {

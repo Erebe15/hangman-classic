@@ -93,7 +93,6 @@ func NewGame() {
 	GameInProgress.RevealedLettres = RevealStartLettres(GameInProgress.Word)
 	GameInProgress.Status = 1
 	GameInProgress.Guess = nil
-	GameInProgress.set.Difficulty = 1
 	ClearAllWindows()
 }
 

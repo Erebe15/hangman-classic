@@ -5,12 +5,12 @@ TERMINAL
 HANGMAN
 LETTRES RÉVÉLÉES : 
 LETTRES NON PRESENTES : 
-Choisissez une lettre: 
-GAGNE
-PERDU
-Le mot était
+Choisissez une lettre : 
+VICTOIRE
+DEFAITE
+Le mot était 
 Voulez-vous rejouer ? 
-Entre 'y' pour rejouer, ou un autre caractère pour quiter
+Entre OUI ou O pour rejouer, ou un autre caractère pour quiter
 Veuillez enter le nom de la sauvegarde : 
 Partie sauvegarder en tant que %s
 Veuillez selectioner une lettre
