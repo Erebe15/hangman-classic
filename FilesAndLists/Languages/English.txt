@@ -8,7 +8,7 @@ WRONG GUESS :
 Choose a letter: 
 YOU WIN
 YOU LOST
-The word was
+The word was 
 Do you want to play again ?
 Enter 'y' to play again, or any other input to quit : 
 Please enter the save name : 

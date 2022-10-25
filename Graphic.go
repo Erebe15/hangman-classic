@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	hangman "hangman/Functions"
+	"unicode/utf8"
 )
 
 var Esc = "\x1b"
@@ -97,12 +98,12 @@ func UpdateS() {
 		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34m", GameInProgress.set.LanguageTxt[7], "\x1B[0m\x1B[?25h") // Choose a letter:
 	case 2:
 		ClearAllWindows()
-		PrintAscii(w.ligns/4-3, w.colones*65/200-44, GameInProgress.set.LanguageTxt[8]) // YOU WIN
+		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[8])*12)/2, GameInProgress.set.LanguageTxt[8]) // YOU WIN
 		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.set.LanguageTxt[10], "\x1B[32m", GameInProgress.Word, "\x1B[0m! ", GameInProgress.set.LanguageTxt[11], "\n\x1B[C ", GameInProgress.set.LanguageTxt[12], " \x1B[?25h")
 	case 3:
 		ClearAllWindows()
 		fmt.Print("\x1B[31m")
-		PrintAscii(w.ligns/4-3, w.colones*65/200-46, GameInProgress.set.LanguageTxt[9]) // YOU LOST
+		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[9])*12)/2, GameInProgress.set.LanguageTxt[9]) // YOU LOST
 		DrawHangmanState()
 		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.set.LanguageTxt[10], " \x1B[31m", GameInProgress.Word, "\x1B[0m! ", GameInProgress.set.LanguageTxt[11], "\n\x1B[C ", GameInProgress.set.LanguageTxt[12], " \x1B[?25h")
 	}

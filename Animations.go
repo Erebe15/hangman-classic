@@ -62,6 +62,7 @@ func HangmanAnimation() {
 				DrawLine(w.colones*71/100, w.ligns*15/100, (w.colones*71/100)+int(math.Cos(float64(i)/50)*float64(w.colones*16/100)), w.ligns*15/100+int(math.Sin(float64(i)/50)*float64(w.colones*8/100)), " ")
 			}
 			DrawLine(w.colones*71/100, w.ligns*15/100, w.colones*87/100, w.ligns*15/100, "█") // Transverse
+			time.Sleep(time.Millisecond * 100)
 			DrawLine(w.colones*73/100, w.ligns*25/100, w.colones*78/100, w.ligns*15/100, "█")
 		case 4:
 			SpawnCorde(w.colones*85/100, w.ligns*15/100, 20)
