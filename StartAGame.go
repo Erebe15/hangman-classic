@@ -5,8 +5,8 @@ import (
 )
 
 func WordIsCompleted() bool {
-	for _, w := range GameInProgress.Word {
-		if !DoesContain(GameInProgress.RevealedLettres, string(w)) {
+	for _, wo := range GameInProgress.Word {
+		if !DoesContain(GameInProgress.RevealedLettres, string(wo)) {
 			return false
 		}
 	}

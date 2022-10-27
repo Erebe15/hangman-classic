@@ -16,42 +16,24 @@ func ClearMenu() {
 	}
 }
 
-func PrintMenu() {
-	for i := 232; i <= 250; i++ {
-		fmt.Printf("\x1B[38;5;%dm", i)
-		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[27]) // N E W   G A M E
-		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[28]) // S A V E S
-		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[29]) // O P T I O N S
-		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[30]) // Q U I T
-		time.Sleep(time.Millisecond * 20)
-	}
-	fmt.Print("\x1B[0m")
-	fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[27])
-	fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[28])
-	fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[29])
-	fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[27])/2), GameInProgress.set.LanguageTxt[30])
-	fmt.Print(MoveTo(1, 1), ">_")
-}
-
 func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 	var choice string
 	ClearMenu()
 	for i := 232; i <= 250; i++ {
 		fmt.Printf("\x1B[38;5;%dm", i)
-		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[a])/2), GameInProgress.set.LanguageTxt[a])
-		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[b])/2), GameInProgress.set.LanguageTxt[b])
-		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[c])/2), GameInProgress.set.LanguageTxt[c])
-		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[d])/2), GameInProgress.set.LanguageTxt[d])
+		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[a])/2), GameInProgress.LanguageTxt[a])
+		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[b])/2), GameInProgress.LanguageTxt[b])
+		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[c])/2), GameInProgress.LanguageTxt[c])
+		fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[d])/2), GameInProgress.LanguageTxt[d])
 		time.Sleep(time.Millisecond * 20)
 	}
 	fmt.Print("\x1B[0m")
-	fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[a])/2), GameInProgress.set.LanguageTxt[a])
-	fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[b])/2), GameInProgress.set.LanguageTxt[b])
-	fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[c])/2), GameInProgress.set.LanguageTxt[c])
-	fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.set.LanguageTxt[d])/2), GameInProgress.set.LanguageTxt[d])
+	fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[a])/2), GameInProgress.LanguageTxt[a])
+	fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[b])/2), GameInProgress.LanguageTxt[b])
+	fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[c])/2), GameInProgress.LanguageTxt[c])
+	fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[d])/2), GameInProgress.LanguageTxt[d])
 	fmt.Print(MoveTo(1, 1), ">_")
 
-	ValidInput := []string{"1", "2", "3", "4"}
 	fmt.Scanln(&choice)
 	switch {
 	case choice == "1":
@@ -62,7 +44,9 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 		fc()
 	case choice == "4":
 		fd()
-	case !DoesContain(ValidInput, choice):
+	case choice == "10":
+		MainMenu()
+	default:
 		fe()
 	}
 }
@@ -84,7 +68,7 @@ func MainMenu() {
 }
 
 func LanguageMenuFr() {
-	if GameInProgress.set.Words != "mots.txt" {
+	if GameInProgress.Words != "mots.txt" {
 		SelectLanguage("Francais")
 		hangman.Clear()
 		WelcomeArrive()
@@ -93,7 +77,7 @@ func LanguageMenuFr() {
 }
 
 func LanguageMenuEn() {
-	if GameInProgress.set.Words != "words.txt" {
+	if GameInProgress.Words != "words.txt" {
 		SelectLanguage("English")
 		hangman.Clear()
 		WelcomeArrive()
@@ -102,7 +86,7 @@ func LanguageMenuEn() {
 }
 
 func LanguageMenuRu() {
-	if GameInProgress.set.Words != "слова.txt" {
+	if GameInProgress.Words != "слова.txt" {
 		SelectLanguage("Russian")
 		hangman.Clear()
 		WelcomeArrive()
@@ -111,22 +95,22 @@ func LanguageMenuRu() {
 }
 
 func DifficultySet1() {
-	GameInProgress.set.Difficulty = 1
+	GameInProgress.Difficulty = 1
 	OptionsMenu()
 }
 
 func DifficultySet2() {
-	GameInProgress.set.Difficulty = 2
+	GameInProgress.Difficulty = 2
 	OptionsMenu()
 }
 
 func DifficultySet3() {
-	GameInProgress.set.Difficulty = 3
+	GameInProgress.Difficulty = 3
 	OptionsMenu()
 }
 
 func DifficultySet4() {
-	GameInProgress.set.Difficulty = 4
+	GameInProgress.Difficulty = 4
 	OptionsMenu()
 }
 
@@ -135,5 +119,6 @@ func Return() {
 }
 
 func quit() {
+	hangman.Clear()
 	os.Exit(0)
 }

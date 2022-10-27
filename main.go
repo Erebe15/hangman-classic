@@ -13,6 +13,7 @@ import (
 
 Game Status:
 
+0 Menu
 1 In game
 2 Won
 3 Lost
@@ -23,16 +24,9 @@ Game Status:
 */
 
 type Game struct {
-	Word                   string
-	Tries, Status          int
-	Guess, RevealedLettres []string
-	set                    Settings
-}
-
-type Settings struct {
-	LanguageTxt []string
-	Words       string
-	Difficulty  int
+	Word, Words                         string
+	Tries, Status, Difficulty           int
+	Guess, RevealedLettres, LanguageTxt []string
 }
 
 type Window struct {
@@ -71,20 +65,15 @@ func SelectLanguage(language string) {
 		panic(err)
 	}
 	sep := []byte{13, 10}
-	GameInProgress.set.LanguageTxt = strings.Split(string(data), string(sep))
+	GameInProgress.LanguageTxt = strings.Split(string(data), string(sep))
 	switch language {
 	case "English":
-		GameInProgress.set.Words = "words.txt"
+		GameInProgress.Words = "words.txt"
 	case "Francais":
-		GameInProgress.set.Words = "mots.txt"
+		GameInProgress.Words = "mots.txt"
 	case "Russian":
-		GameInProgress.set.Words = "слова.txt"
+		GameInProgress.Words = "слова.txt"
 	}
-}
-
-func gameInit(Ready chan int) (bool, string) {
-	go resizeWindow(Ready)
-	return true, ""
 }
 
 func NewGame() {
@@ -96,6 +85,12 @@ func NewGame() {
 	ClearAllWindows()
 }
 
+func LaunchMenu() {
+	WelcomeArrive()
+	MainMenu()
+	WelcomeFadeAway()
+}
+
 func main() {
 	w.ligns, w.colones = hangman.Size()
 	flag.Parse()
@@ -103,33 +98,38 @@ func main() {
 		readJSON("Saves/" + Save + ".json")
 		time.Sleep(time.Second * 3)
 	} else if w.colones >= 155 && w.ligns >= 41 {
-		WelcomeArrive()
-		MainMenu()
-		WelcomeFadeAway()
+		LaunchMenu()
 	}
 
 	WindowsReady := make(chan int)
-	PlayAgain, choice := gameInit(WindowsReady)
+	go resizeWindow(WindowsReady)
+	PlayAgain := true
+	var choice string
 	_ = <-WindowsReady
 
 	for PlayAgain {
-		if GameInProgress.Status < 10 {
+		if GameInProgress.Status < 10 { // !Saved game
 			NewGame()
-		} else {
-			GameInProgress.Status -= 10
 		}
 
 		StartPlaying()
 
-		fmt.Scanln(&choice)
-		fmt.Print("\x1B[?25l")
-		if strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[19] || strings.ToUpper(choice) == GameInProgress.set.LanguageTxt[20] || strings.ToUpper(choice) == "" { // YES Y
-			PlayAgain = true
-		} else {
-			PlayAgain = false
-			fmt.Print("\x1B[C", GameInProgress.set.LanguageTxt[26]) // see you later
-			time.Sleep(time.Second)
-			hangman.Clear()
+		for choice != "1" && choice != "2" && choice != "3" {
+			fmt.Scanln(&choice)
+			fmt.Print("\x1B[?25l")
+			if choice == "2" {
+				PlayAgain = true
+				GameInProgress.Status = 0 // in the menu
+				LaunchMenu()
+				GameInProgress.Status = 1 // in game
+				hangman.Clear()
+				CreateWindows()
+			} else if choice == "3" {
+				PlayAgain = false
+				fmt.Print("\x1B[C", GameInProgress.LanguageTxt[26]) // see you later
+				time.Sleep(time.Second)
+				hangman.Clear()
+			}
 		}
 	}
 }

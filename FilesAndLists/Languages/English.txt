@@ -40,3 +40,9 @@ see you later!
 (1)   E N G L I S H
 (2)   F R A N C A I S
 (3)   Р У С С К И Й
+(9)   N E X T
+(0)   P R E V
+PLAY AGAIN
+MAIN MENU
+QUIT
+there is no save

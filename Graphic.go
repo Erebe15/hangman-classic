@@ -34,9 +34,9 @@ func cadre(y1, x1, y2, x2 int, title string) {
 }
 
 func CreateWindows() {
-	cadre(1, 1, w.ligns/2, w.colones*65/100, GameInProgress.set.LanguageTxt[2])           // WORD
-	cadre(1, (w.colones*65/100)+1, w.ligns, w.colones, GameInProgress.set.LanguageTxt[4]) // HANGMAN
-	cadre(w.ligns/2+1, 1, w.ligns, w.colones*65/100, GameInProgress.set.LanguageTxt[3])   // TERMINAL
+	cadre(1, 1, w.ligns/2, w.colones*65/100, GameInProgress.LanguageTxt[2])           // WORD
+	cadre(1, (w.colones*65/100)+1, w.ligns, w.colones, GameInProgress.LanguageTxt[4]) // HANGMAN
+	cadre(w.ligns/2+1, 1, w.ligns, w.colones*65/100, GameInProgress.LanguageTxt[3])   // TERMINAL
 	fmt.Print(MoveTo(w.ligns/2+2, 2))
 }
 
@@ -90,21 +90,29 @@ func UpdateS() {
 		PrintWord()
 		DrawHangmanState()
 		if GameInProgress.RevealedLettres != nil {
-			fmt.Print(MoveTo(2, 2), "\x1B[32m", GameInProgress.set.LanguageTxt[5], GameInProgress.RevealedLettres) // REVEALED LETTERS :
+			fmt.Print(MoveTo(2, 2), "\x1B[32m", GameInProgress.LanguageTxt[5], GameInProgress.RevealedLettres) // REVEALED LETTERS :
 		}
 		if GameInProgress.Guess != nil {
-			fmt.Print(MoveTo(2, w.colones*65/100+2), "\x1B[31m", GameInProgress.set.LanguageTxt[6], GameInProgress.Guess) // WRONG GUESS :
+			fmt.Print(MoveTo(2, w.colones*65/100+2), "\x1B[31m", GameInProgress.LanguageTxt[6], GameInProgress.Guess) // WRONG GUESS :
 		}
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34m", GameInProgress.set.LanguageTxt[7], "\x1B[0m\x1B[?25h") // Choose a letter:
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[34m", GameInProgress.LanguageTxt[7], "\x1B[0m\x1B[?25h") // Choose a letter:
 	case 2:
 		ClearAllWindows()
-		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[8])*12)/2, GameInProgress.set.LanguageTxt[8]) // YOU WIN
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.set.LanguageTxt[10], "\x1B[32m", GameInProgress.Word, "\x1B[0m! ", GameInProgress.set.LanguageTxt[11], "\n\x1B[C ", GameInProgress.set.LanguageTxt[12], " \x1B[?25h")
+		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.LanguageTxt[8])*12)/2, GameInProgress.LanguageTxt[8]) // YOU WIN
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.LanguageTxt[10], "\x1B[32m", GameInProgress.Word, "\x1B[0m!")
+		fmt.Print(MoveTo(w.ligns*75/100-3, w.colones/4), "(1)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[44])) // TRY AGAIN
+		fmt.Print(MoveTo(w.ligns*75/100, w.colones/4), "(2)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))   // MAIN MENU
+		fmt.Print(MoveTo(w.ligns*75/100+3, w.colones/4), "(3)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[46])) // QUIT
+		fmt.Print(MoveTo(w.ligns/2+3, 2), ">_\x1B[?25h")
 	case 3:
 		ClearAllWindows()
 		fmt.Print("\x1B[31m")
-		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.set.LanguageTxt[9])*12)/2, GameInProgress.set.LanguageTxt[9]) // YOU LOST
+		PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.LanguageTxt[9])*12)/2, GameInProgress.LanguageTxt[9]) // YOU LOST
 		DrawHangmanState()
-		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.set.LanguageTxt[10], " \x1B[31m", GameInProgress.Word, "\x1B[0m! ", GameInProgress.set.LanguageTxt[11], "\n\x1B[C ", GameInProgress.set.LanguageTxt[12], " \x1B[?25h")
+		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[C", GameInProgress.LanguageTxt[10], "\x1B[31m", GameInProgress.Word, "\x1B[0m!")
+		fmt.Print(MoveTo(w.ligns*75/100-3, w.colones/4), "(1)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[44])) // TRY AGAIN
+		fmt.Print(MoveTo(w.ligns*75/100, w.colones/4), "(2)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))   // MAIN MENU
+		fmt.Print(MoveTo(w.ligns*75/100+3, w.colones/4), "(3)   "+hangman.NicerTypo(GameInProgress.LanguageTxt[46])) // QUIT
+		fmt.Print(MoveTo(w.ligns/2+3, 2), ">_\x1B[?25h")
 	}
 }

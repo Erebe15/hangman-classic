@@ -23,7 +23,7 @@ func PrintJose() {
 }
 
 func DrawHangmanState() {
-	if w.ligns >= 25 && w.colones > 65 {
+	if w.ligns >= 32 && w.colones > 65 {
 		drawFancy()
 	} else {
 		PrintJose()
