@@ -44,8 +44,12 @@ func init() {
 			SelectLanguage("Francais")
 		case "слова.txt":
 			SelectLanguage("Russian")
-		default:
+		case "words.txt":
 			SelectLanguage("English")
+		default:
+			hangman.Clear()
+			fmt.Print("\"", os.Args[1], "\" not supported\n")
+			os.Exit(1)
 		}
 	} else {
 		SelectLanguage("English")
@@ -97,7 +101,7 @@ func main() {
 	if Save != "" {
 		readJSON("Saves/" + Save + ".json")
 		time.Sleep(time.Second * 3)
-	} else if w.colones >= 155 && w.ligns >= 41 {
+	} else if w.colones >= 155 && w.ligns >= 47 {
 		LaunchMenu()
 	}
 

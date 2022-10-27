@@ -37,7 +37,7 @@ func Saves() {
 	}
 	if len(SavesFiles) == 0 {
 		ClearMenu()
-		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[47])/2), GameInProgress.LanguageTxt[47])
+		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(hangman.NicerTypo(GameInProgress.LanguageTxt[47]))/2), hangman.NicerTypo(GameInProgress.LanguageTxt[47]))
 		time.Sleep(time.Second * 2)
 		MainMenu()
 	}
@@ -63,10 +63,10 @@ func PrintSaves(Page [][]fs.FileInfo, p int) {
 			fmt.Print(MoveTo(33+3*j, w.colones/2-utf8.RuneCountInString("(n)   "+save.Name())), "(", j+1, ")   ", hangman.NicerTypo(save.Name()[:utf8.RuneCountInString(save.Name())-5]))
 		}
 		if p < len(Page)-1 {
-			fmt.Print(MoveTo(44, w.colones/2+25), GameInProgress.LanguageTxt[42])
+			fmt.Print(MoveTo(44, w.colones/2+25), GameInProgress.LanguageTxt[42]) // NEXT
 		}
 		if p > 0 {
-			fmt.Print(MoveTo(44, w.colones/2-25-utf8.RuneCountInString(GameInProgress.LanguageTxt[43])), GameInProgress.LanguageTxt[43])
+			fmt.Print(MoveTo(44, w.colones/2-25-utf8.RuneCountInString(GameInProgress.LanguageTxt[43])), GameInProgress.LanguageTxt[43]) // PREV
 		}
 		if p == len(Page) {
 			fmt.Print(MoveTo(44, w.colones/2+25), "                    ")
@@ -89,13 +89,29 @@ func PrintSaves(Page [][]fs.FileInfo, p int) {
 		}
 	case "1":
 		readJSON("Saves/" + Page[p][0].Name())
+		ClearMenu()
 	case "2":
-		readJSON("Saves/" + Page[p][1].Name())
+		if len(Page[p]) >= 2 {
+			readJSON("Saves/" + Page[p][2].Name())
+			ClearMenu()
+		} else {
+			PrintSaves(Page, p)
+		}
 	case "3":
-		readJSON("Saves/" + Page[p][2].Name())
+		if len(Page[p]) >= 3 {
+			readJSON("Saves/" + Page[p][3].Name())
+			ClearMenu()
+		} else {
+			PrintSaves(Page, p)
+		}
 	case "4":
-		readJSON("Saves/" + Page[p][3].Name())
-	case "0":
+		if len(Page[p]) >= 4 {
+			readJSON("Saves/" + Page[p][4].Name())
+			ClearMenu()
+		} else {
+			PrintSaves(Page, p)
+		}
+	case "8":
 		if p > 0 {
 			PrintSaves(Page, p-1) // Prev
 		} else {
