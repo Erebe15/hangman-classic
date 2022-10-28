@@ -62,5 +62,4 @@ func StartPlaying() {
 	} else {
 		GameInProgress.Status = 3 // lost game
 	}
-	UpdateS()
 }

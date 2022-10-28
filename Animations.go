@@ -138,8 +138,8 @@ func SpawnCorde(x, y, l int) {
 }
 
 func RemoveNode(x, y int) {
-	fmt.Print(MoveTo(y, x), " ")
-	fmt.Print("\x1B[B\x1B[3D     ")
+	fmt.Print(MoveTo(y, x), "")
+	fmt.Print("\x1B[B\x1B[2D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")

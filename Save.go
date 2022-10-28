@@ -40,19 +40,20 @@ func Saves() {
 		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(hangman.NicerTypo(GameInProgress.LanguageTxt[47]))/2), hangman.NicerTypo(GameInProgress.LanguageTxt[47]))
 		time.Sleep(time.Second * 2)
 		MainMenu()
-	}
-	var Page [][]fs.FileInfo
-	for i := 0; i < len(SavesFiles)/4; i++ {
-		Page = append(Page, nil)
-	}
-	if len(SavesFiles)%4 != 0 {
-		Page = append(Page, nil)
-	}
-	for i := 0; i < len(SavesFiles); i++ {
-		Page[i/4] = append(Page[i/4], SavesFiles[i])
-	}
+	} else {
+		var Page [][]fs.FileInfo
+		for i := 0; i < len(SavesFiles)/4; i++ {
+			Page = append(Page, nil)
+		}
+		if len(SavesFiles)%4 != 0 {
+			Page = append(Page, nil)
+		}
+		for i := 0; i < len(SavesFiles); i++ {
+			Page[i/4] = append(Page[i/4], SavesFiles[i])
+		}
 
-	PrintSaves(Page, 0)
+		PrintSaves(Page, 0)
+	}
 }
 
 func PrintSaves(Page [][]fs.FileInfo, p int) {

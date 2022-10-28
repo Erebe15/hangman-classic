@@ -101,24 +101,26 @@ func main() {
 	if Save != "" {
 		readJSON("Saves/" + Save + ".json")
 		time.Sleep(time.Second * 3)
-	} else if w.colones >= 155 && w.ligns >= 47 {
+	} else if w.colones >= 155 && w.ligns >= 46 {
 		LaunchMenu()
 	}
 
 	WindowsReady := make(chan int)
 	go resizeWindow(WindowsReady)
 	PlayAgain := true
-	var choice string
 	_ = <-WindowsReady
 
 	for PlayAgain {
+
 		if GameInProgress.Status < 10 { // !Saved game
 			NewGame()
 		}
 
 		StartPlaying()
 
+		choice := ""
 		for choice != "1" && choice != "2" && choice != "3" {
+			UpdateS()
 			fmt.Scanln(&choice)
 			fmt.Print("\x1B[?25l")
 			if choice == "2" {
