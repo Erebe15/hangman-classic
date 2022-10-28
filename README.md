@@ -1,4 +1,4 @@
-# **Hangman Game**
+# **<p class="text-center">Hangman Game</p>**
 <img src="https://media.giphy.com/media/riqiausX2TY6Lk7WhF/giphy.gif" width="5000" height=""/>
 
 ## **Summary**
@@ -27,8 +27,8 @@ cd hangman-classic/
 ```
 ### Then with GitBash ⚠
 ⚠ _For an optimal experience set the font size at 8pt (the minimum) with a black background_<br />
-⚠ _To access the menu, launch the game with a terminal window **at least** 156 wide by 47 high._<br />
-note that you can change the size of the window at any moment in the game!
+⚠ _To access the menu, launch the game with a terminal window **at least** 156 wide by 47 high._<br /><br />
+> Note that you can change the size of the window at any moment after the menu in the actual game!
 
 ## Start
 
@@ -60,7 +60,7 @@ go run . -startWith=<NameOfTheSave>
 
 ## Created by :
 
-- [ANDRIEUX Rodolphe](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-- [PIET Thomas](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- <i class="fa fa-user-circle" aria-hidden="true"></i>[ANDRIEUX Rodolphe](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- <i class="fa fa-user-circle" aria-hidden="true"></i>[PIET Thomas](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 
