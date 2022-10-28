@@ -26,16 +26,22 @@ cd hangman-classic/
 
 ## Quick Start
 
-Hangman can be run from Git Bash, it will create a new game.<br />
-_CLI Example_ :
+Hangman can be run from Git Bash with the basic command, it will create a new game.<br />
+You can choose the language by executing the program :
+
++ If you want to run it in English, write "words.txt"
++ If you want to run it in French, write "mots.txt"
++ If you want to run it in Russian, write "слова.txt"<br /><br />
+  _CLI Example_ :
 
 ```bash
-go run . words.txt
+go run . <LanguageChoose.txt>
 ```
-You can also launch the game from a save.
+
+You can also launch the game from a save.<br />
 _CLI Example_ :
 ````bash
-go run . --startwith <NameOfTheSave>
+go run . --startwith <NameOfTheSave> 
 ````
 ## Created by :
 
