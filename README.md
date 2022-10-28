@@ -1,4 +1,4 @@
-# **<p class="text-center">Hangman Game</p>**
+# **Hangman Game**
 <img src="https://media.giphy.com/media/riqiausX2TY6Lk7WhF/giphy.gif" width="5000" height=""/>
 
 ## **Summary**
@@ -60,7 +60,7 @@ go run . -startWith=<NameOfTheSave>
 
 ## Created by :
 
-- <i class="fa fa-user-circle" aria-hidden="true"></i>[ANDRIEUX Rodolphe](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-- <i class="fa fa-user-circle" aria-hidden="true"></i>[PIET Thomas](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [ANDRIEUX Rodolphe](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [PIET Thomas](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 
