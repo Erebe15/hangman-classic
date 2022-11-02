@@ -126,7 +126,7 @@ func Elastic(x float64) float64 {
 }
 
 func SpawnCorde(x, y, l int) {
-	for i := 1; i <= 200; i++ {
+	for i := 1; i <= 150; i++ {
 		t0 := float64(i-1) / 100
 		t := float64(i) / 100
 		RemoveNode(x, y+int(lerp(0, float64(w.ligns*l/100)+0.2, Elastic(t0))))
@@ -202,6 +202,7 @@ func WelcomeFadeAway() {
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
 		if GameInProgress.Status < 10 {
+			fmt.Print(MoveTo(w.ligns-1, w.colones-utf8.RuneCountInString("(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))), "(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))
 			fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[28])/2), GameInProgress.LanguageTxt[28])
 			fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[29])/2), GameInProgress.LanguageTxt[29])
 			fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[30])/2), GameInProgress.LanguageTxt[30])

@@ -7,7 +7,7 @@ REVEALED LETTERS :
 WRONG GUESS : 
 Choose a letter: 
 YOU WIN
-YOU LOST
+YOU LOSE
 The word was 
 Do you want to play again ?
 Enter 'y' to play again, or any other input to quit : 

@@ -21,6 +21,7 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 	ClearMenu()
 	for i := 232; i <= 250; i++ {
 		fmt.Printf("\x1B[38;5;%dm", i)
+		fmt.Print(MoveTo(w.ligns-1, w.colones-utf8.RuneCountInString("(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))), "(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))
 		fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[a])/2), GameInProgress.LanguageTxt[a])
 		fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[b])/2), GameInProgress.LanguageTxt[b])
 		fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[c])/2), GameInProgress.LanguageTxt[c])
@@ -28,6 +29,7 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 		time.Sleep(time.Millisecond * 20)
 	}
 	fmt.Print("\x1B[0m")
+	fmt.Print(MoveTo(w.ligns-1, w.colones-utf8.RuneCountInString("(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))), "(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))
 	fmt.Print(MoveTo(33, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[a])/2), GameInProgress.LanguageTxt[a])
 	fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[b])/2), GameInProgress.LanguageTxt[b])
 	fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[c])/2), GameInProgress.LanguageTxt[c])
@@ -52,7 +54,7 @@ func Menu4(a, b, c, d int, fa, fb, fc, fd, fe func()) {
 }
 
 func LanguageMenu() {
-	Menu4(39, 40, 41, 34, LanguageMenuEn, LanguageMenuFr, LanguageMenuRu, LanguageMenu, LanguageMenu)
+	Menu4(39, 40, 41, 34, LanguageMenuEn, LanguageMenuFr, LanguageMenuRu, LanguageMenu, OptionsMenu)
 }
 
 func DifficultyMenu() {
@@ -96,22 +98,22 @@ func LanguageMenuRu() {
 
 func DifficultySet1() {
 	GameInProgress.Difficulty = 1
-	OptionsMenu()
+	MainMenu()
 }
 
 func DifficultySet2() {
 	GameInProgress.Difficulty = 2
-	OptionsMenu()
+	MainMenu()
 }
 
 func DifficultySet3() {
 	GameInProgress.Difficulty = 3
-	OptionsMenu()
+	MainMenu()
 }
 
 func DifficultySet4() {
 	GameInProgress.Difficulty = 4
-	OptionsMenu()
+	MainMenu()
 }
 
 func Return() {

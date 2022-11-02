@@ -43,6 +43,10 @@ func ChooseLetter() string {
 			hangman.Clear()
 			os.Exit(0)
 
+		case guess == "DEVMODE":
+			fmt.Print(MoveTo(3, 2), "the word is ", GameInProgress.Word)
+			ClearTerminal()
+
 		case !IsAlpha(guess):
 			ClearTerminal()
 			fmt.Print("\n\a\x1B[C\x1B[31m", GameInProgress.LanguageTxt[15], "\x1B[0m\n\x1B[C") // Please, select a letter

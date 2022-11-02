@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 func WordIsCompleted() bool {
 	for _, wo := range GameInProgress.Word {
 		if !DoesContain(GameInProgress.RevealedLettres, string(wo)) {
@@ -47,7 +43,6 @@ func ProcessGuess(guess string) {
 
 func StartPlaying() {
 	GameInProgress.Status = 1 // playing
-	fmt.Print(MoveTo(3, 2), "the word: ", GameInProgress.Word)
 	for GameInProgress.Tries < 10 && !WordIsCompleted() {
 
 		ClearTerminal()
