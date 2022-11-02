@@ -12,7 +12,7 @@ func ClearMenu() {
 	fmt.Print(MoveTo(1, 1), "     ")
 	fmt.Print(MoveTo(33, w.colones/2-30))
 	for l := 0; l <= 10; l++ {
-		fmt.Print("                                                            \x1B[B\x1B[60D")
+		fmt.Print("                                                            \x1B[B\x1B[60D") // erase previous display
 	}
 }
 
