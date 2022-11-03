@@ -14,10 +14,11 @@ import (
 
 func Marshal(file string) {
 	b, err := json.Marshal(GameInProgress)
+	err = os.WriteFile(file, b, 0644)
 	if err != nil {
 		fmt.Println("error", err)
+		os.Exit(1)
 	}
-	os.WriteFile(file, b, 0644)
 }
 
 func readJSON(file string) {
@@ -27,6 +28,7 @@ func readJSON(file string) {
 	err = os.Remove(file)
 	if err != nil {
 		fmt.Println("error = ", err.Error())
+		os.Exit(1)
 	}
 }
 
@@ -68,12 +70,6 @@ func PrintSaves(Page [][]fs.FileInfo, p int) {
 		}
 		if p > 0 {
 			fmt.Print(MoveTo(44, w.colones/2-25-utf8.RuneCountInString(GameInProgress.LanguageTxt[43])), GameInProgress.LanguageTxt[43]) // PREV
-		}
-		if p == len(Page) {
-			fmt.Print(MoveTo(44, w.colones/2+25), "                    ")
-		}
-		if p == 0 {
-			fmt.Print(MoveTo(44, w.colones/2-25-utf8.RuneCountInString(GameInProgress.LanguageTxt[43])), "                    ")
 		}
 		time.Sleep(time.Millisecond * 20)
 	}
@@ -118,6 +114,8 @@ func PrintSaves(Page [][]fs.FileInfo, p int) {
 		} else {
 			PrintSaves(Page, p)
 		}
+	case "10":
+		MainMenu()
 	default:
 		PrintSaves(Page, p)
 	}

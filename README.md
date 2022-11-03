@@ -54,13 +54,8 @@ go run . --startWith <NameOfTheSave>
 ```bash
 go run . -s <NameOfTheSave> 
 ```
-```bash
-go run . -startWith=<NameOfTheSave> 
-```
 
 ## Created by :
 
 - [ANDRIEUX Rodolphe](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 - [PIET Thomas](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-
