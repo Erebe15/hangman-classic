@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	hangman "hangman/Functions"
 	"os"
 	"strings"
 	"time"
+	hangman "ytrack.learn.ynov.com/git/pthomas/hangman-classic/Functions"
 )
 
 /*

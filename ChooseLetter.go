@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"hangman/Functions"
 	"os"
 	"strings"
 	"time"
 	"unicode/utf8"
+	"ytrack.learn.ynov.com/git/pthomas/hangman-classic/Functions"
 )
 
 func IsAlpha(s string) bool {

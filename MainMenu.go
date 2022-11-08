@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
 	"os"
 	"time"
 	"unicode/utf8"
+	hangman "ytrack.learn.ynov.com/git/pthomas/hangman-classic/Functions"
 )
 
 func ClearMenu() {

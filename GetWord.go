@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"hangman/Functions"
 	"math/rand"
 	"os"
 	"strings"
 	"time"
 	"unicode/utf8"
+	"ytrack.learn.ynov.com/git/pthomas/hangman-classic/Functions"
 )
 
 func GetWord() string {

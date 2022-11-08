@@ -3,13 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	hangman "hangman/Functions"
 	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
 	"time"
 	"unicode/utf8"
+	hangman "ytrack.learn.ynov.com/git/pthomas/hangman-classic/Functions"
 )
 
 func Marshal(file string) {
