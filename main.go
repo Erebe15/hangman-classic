@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	hangman "hangman/Functions"
+	"os"
 	"strings"
 	"time"
 )
@@ -12,6 +13,7 @@ import (
 
 Game Status:
 
+0 Menu
 1 In game
 2 Won
 3 Lost
@@ -22,9 +24,9 @@ Game Status:
 */
 
 type Game struct {
-	Word                   string
-	Tries, Status          int
-	Guess, RevealedLettres []string
+	Word, Words                         string
+	Tries, Status, Difficulty           int
+	Guess, RevealedLettres, LanguageTxt []string
 }
 
 type Window struct {
@@ -36,6 +38,23 @@ var w Window
 var Save string
 
 func init() {
+	if len(os.Args) == 2 {
+		switch os.Args[1] {
+		case "mots.txt":
+			SelectLanguage("Francais")
+		case "слова.txt":
+			SelectLanguage("Russian")
+		case "words.txt":
+			SelectLanguage("English")
+		default:
+			hangman.Clear()
+			fmt.Print("\"", os.Args[1], "\" not supported\n")
+			os.Exit(1)
+		}
+	} else {
+		SelectLanguage("English")
+	}
+
 	const (
 		defaultSave = ""
 		usage       = "the name of the save file"
@@ -44,51 +63,79 @@ func init() {
 	flag.StringVar(&Save, "s", defaultSave, usage+" (shorthand)")
 }
 
-func gameInit(Ready chan int) (bool, string) {
-	go resizeWindow(Ready)
-	return true, ""
+func SelectLanguage(language string) {
+	data, err := os.ReadFile("FilesAndLists/Languages/" + language + ".txt")
+	if err != nil {
+		panic(err)
+	}
+	sep := []byte{13, 10}
+	GameInProgress.LanguageTxt = strings.Split(string(data), string(sep))
+	switch language {
+	case "English":
+		GameInProgress.Words = "words.txt"
+	case "Francais":
+		GameInProgress.Words = "mots.txt"
+	case "Russian":
+		GameInProgress.Words = "слова.txt"
+	}
 }
 
 func NewGame() {
-	GameInProgress.Word = hangman.GetWord()
+	GameInProgress.Word = GetWord()
 	GameInProgress.Tries = 0
-	GameInProgress.RevealedLettres = hangman.RevealStartLettres(GameInProgress.Word)
+	GameInProgress.RevealedLettres = RevealStartLettres(GameInProgress.Word)
 	GameInProgress.Status = 1
 	GameInProgress.Guess = nil
 	ClearAllWindows()
 }
 
-func main() {
+func LaunchMenu() {
+	WelcomeArrive()
+	MainMenu()
+	WelcomeFadeAway()
+}
 
+func main() {
+	w.ligns, w.colones = hangman.Size()
 	flag.Parse()
 	if Save != "" {
 		readJSON("Saves/" + Save + ".json")
 		time.Sleep(time.Second * 3)
-	} else {
-		welcome()
+	} else if w.colones >= 155 && w.ligns >= 46 {
+		LaunchMenu()
 	}
 
-	Ready := make(chan int)
-	PlayAgain, choice := gameInit(Ready)
-	_ = <-Ready
+	WindowsReady := make(chan int)
+	go resizeWindow(WindowsReady)
+	PlayAgain := true
+	_ = <-WindowsReady
+
 	for PlayAgain {
-		if GameInProgress.Status < 10 {
+
+		if GameInProgress.Status < 10 { // !Saved game
 			NewGame()
-		} else {
-			GameInProgress.Status -= 10
 		}
 
 		StartPlaying()
 
-		fmt.Scanln(&choice)
-		fmt.Print("\x1B[?25l")
-		if strings.ToUpper(choice) == "Y" || strings.ToUpper(choice) == "YES" || strings.ToUpper(choice) == "" {
-			PlayAgain = true
-		} else {
-			PlayAgain = false
-			fmt.Print("\x1B[Csee you later!")
-			time.Sleep(time.Second)
-			hangman.Clear()
+		choice := ""
+		for choice != "1" && choice != "2" && choice != "3" {
+			UpdateS()
+			fmt.Scanln(&choice)
+			fmt.Print("\x1B[?25l")
+			if choice == "2" {
+				PlayAgain = true
+				GameInProgress.Status = 0 // in the menu
+				LaunchMenu()
+				GameInProgress.Status = 1 // in game
+				hangman.Clear()
+				CreateWindows()
+			} else if choice == "3" {
+				PlayAgain = false
+				fmt.Print("\x1B[C", GameInProgress.LanguageTxt[26]) // see you later
+				time.Sleep(time.Second)
+				hangman.Clear()
+			}
 		}
 	}
 }

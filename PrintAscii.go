@@ -2,35 +2,39 @@ package main
 
 import (
 	"fmt"
-	hangman "hangman/Functions"
 	"os"
 	"strings"
+	"unicode/utf8"
 )
 
 func PrintWord() {
 	display := ""
-	for i := 0; i < len(GameInProgress.Word); i++ {
-		if hangman.DoesContain(GameInProgress.RevealedLettres, string(GameInProgress.Word[i])) == true {
-			if len(GameInProgress.Word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
-				display += " " + string(GameInProgress.Word[i])
+	var LettersOfWord []string
+	for _, l := range GameInProgress.Word {
+		LettersOfWord = append(LettersOfWord, string(l))
+	}
+	for _, l := range LettersOfWord {
+		if DoesContain(GameInProgress.RevealedLettres, l) == true {
+			if utf8.RuneCountInString(GameInProgress.Word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
+				display += " " + l
 			} else {
-				display = display + string(GameInProgress.Word[i])
+				display = display + l
 			}
 		} else {
-			if len(GameInProgress.Word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
+			if utf8.RuneCountInString(GameInProgress.Word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
 				display += " _"
 			} else {
 				display += "_"
 			}
 		}
 	}
-	PrintAscii(w.ligns/4-3, w.colones*65/200-(len(GameInProgress.Word)*12)/2, display)
+	PrintAscii(w.ligns/4-3, w.colones*65/200-(utf8.RuneCountInString(GameInProgress.Word)*12)/2, display)
 	fmt.Print("\x1B[0m")
 }
 
 func PrintAscii(y, x int, word string) {
-	if len(word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
-		fmt.Print(MoveTo(y+3, x+len(word)*3-len(word)/2), "\x1B[1m"+word)
+	if utf8.RuneCountInString(word)*12 > w.colones*65/100-4 || w.ligns/2 < 11 {
+		fmt.Print(MoveTo(y+3, x+utf8.RuneCountInString(word)*3-utf8.RuneCountInString(word)/2), "\x1B[1m"+word)
 		fmt.Print(MoveTo(w.ligns/2+2, 2), "\x1B[0m")
 		return
 	}
@@ -45,10 +49,14 @@ func PrintAscii(y, x int, word string) {
 	for _, l := range char {
 		CharLigns = append(CharLigns, strings.Split(l, string(sep[2:])))
 	}
-	characters := "<> -();,._ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	characters := [...]string{"<", ">", " ", "-", "(", ")", ";", ",", ".", "_", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"}
+	var LettersOfWord []string
+	for _, l := range word {
+		LettersOfWord = append(LettersOfWord, string(l))
+	}
 
 	for floor := 0; floor < 9; floor++ {
-		for k, l := range word {
+		for k, l := range LettersOfWord {
 			for i, c := range characters {
 				if l == c {
 					fmt.Print(MoveTo(y+floor, x+k*12), CharLigns[i][floor])

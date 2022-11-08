@@ -5,6 +5,7 @@ import (
 	hangman "hangman/Functions"
 	"math"
 	"time"
+	"unicode/utf8"
 )
 
 func WrongAnswerEffect() {
@@ -61,6 +62,7 @@ func HangmanAnimation() {
 				DrawLine(w.colones*71/100, w.ligns*15/100, (w.colones*71/100)+int(math.Cos(float64(i)/50)*float64(w.colones*16/100)), w.ligns*15/100+int(math.Sin(float64(i)/50)*float64(w.colones*8/100)), " ")
 			}
 			DrawLine(w.colones*71/100, w.ligns*15/100, w.colones*87/100, w.ligns*15/100, "█") // Transverse
+			time.Sleep(time.Millisecond * 100)
 			DrawLine(w.colones*73/100, w.ligns*25/100, w.colones*78/100, w.ligns*15/100, "█")
 		case 4:
 			SpawnCorde(w.colones*85/100, w.ligns*15/100, 20)
@@ -124,7 +126,7 @@ func Elastic(x float64) float64 {
 }
 
 func SpawnCorde(x, y, l int) {
-	for i := 1; i <= 200; i++ {
+	for i := 1; i <= 150; i++ {
 		t0 := float64(i-1) / 100
 		t := float64(i) / 100
 		RemoveNode(x, y+int(lerp(0, float64(w.ligns*l/100)+0.2, Elastic(t0))))
@@ -136,8 +138,8 @@ func SpawnCorde(x, y, l int) {
 }
 
 func RemoveNode(x, y int) {
-	fmt.Print(MoveTo(y, x), " ")
-	fmt.Print("\x1B[B\x1B[3D     ")
+	fmt.Print(MoveTo(y, x), "")
+	fmt.Print("\x1B[B\x1B[2D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")
 	fmt.Print("\x1B[B\x1B[5D     ")
@@ -177,42 +179,51 @@ func DrawFreakOutHead(x, y int) {
 	fmt.Print("\x1B[B\x1B[7D █▄▄▄█ ")
 }
 
-func welcome() {
+func WelcomeArrive() {
 	w.ligns, w.colones = hangman.Size()
 	hangman.Clear()
 	time.Sleep(time.Second)
 	for i := 232; i <= 250; i++ {
 		fmt.Printf("\x1B[38;5;%dm\x1B[?25l", i)
-		PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
+		PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[0])*12)/2, GameInProgress.LanguageTxt[0]) // WELCOME
 		fmt.Printf("\x1B[38;5;%dm", i)
-		PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
+		PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[1])*12)/2, GameInProgress.LanguageTxt[1]) // TO
 		fmt.Printf("\x1B[38;5;%dm", i)
-		PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
+		PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[4])*12)/2, GameInProgress.LanguageTxt[4]) // HANGMAN
 		time.Sleep(time.Millisecond * 80)
 	}
-	PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
-	PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
-	PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
-	SpawnCorde(20, 2, 60)
+	PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[0])*12)/2, GameInProgress.LanguageTxt[0])
+	PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[1])*12)/2, GameInProgress.LanguageTxt[1])
+	PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[4])*12)/2, GameInProgress.LanguageTxt[4])
+	SpawnCorde(20, 1, 60)
+}
+
+func WelcomeFadeAway() {
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
-		PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
+		if GameInProgress.Status < 10 {
+			fmt.Print(MoveTo(w.ligns-1, w.colones-utf8.RuneCountInString("(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))), "(10) "+hangman.NicerTypo(GameInProgress.LanguageTxt[45]))
+			fmt.Print(MoveTo(36, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[28])/2), GameInProgress.LanguageTxt[28])
+			fmt.Print(MoveTo(39, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[29])/2), GameInProgress.LanguageTxt[29])
+			fmt.Print(MoveTo(42, w.colones/2-utf8.RuneCountInString(GameInProgress.LanguageTxt[30])/2), GameInProgress.LanguageTxt[30])
+		}
+		PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[0])*12)/2, GameInProgress.LanguageTxt[0])
 		fmt.Printf("\x1B[38;5;%dm", i)
-		PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
+		PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[1])*12)/2, GameInProgress.LanguageTxt[1])
 		fmt.Printf("\x1B[38;5;%dm", i)
-		PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
-		time.Sleep(time.Millisecond * 80)
+		PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[4])*12)/2, GameInProgress.LanguageTxt[4])
+		time.Sleep(time.Millisecond * 50)
 	}
 	fmt.Printf("\x1B[38;5;0m")
-	PrintAscii(3, w.colones/2-(len("WELCOME")*12)/2, "WELCOME")
+	PrintAscii(3, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[0])*12)/2, GameInProgress.LanguageTxt[0])
 	fmt.Printf("\x1B[38;5;0m")
-	PrintAscii(12, w.colones/2-(len("WELCOME")*12)/2, "  TO   ")
+	PrintAscii(12, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[1])*12)/2, GameInProgress.LanguageTxt[1])
 	fmt.Printf("\x1B[38;5;0m")
-	PrintAscii(21, w.colones/2-(len("WELCOME")*12)/2, "HANGMAN")
+	PrintAscii(21, w.colones/2-(utf8.RuneCountInString(GameInProgress.LanguageTxt[4])*12)/2, GameInProgress.LanguageTxt[4])
 	for i := 250; i >= 232; i-- {
 		fmt.Printf("\x1B[38;5;%dm", i)
-		DrawNode(20, w.ligns*60/100+2)
-		DrawLine(20, 2, 20, w.ligns*60/100+2, "█")
+		DrawNode(20, w.ligns*60/100+1)
+		DrawLine(20, 1, 20, w.ligns*60/100+1, "█")
 		time.Sleep(time.Millisecond * 50)
 	}
 	fmt.Printf("\x1B[0m")

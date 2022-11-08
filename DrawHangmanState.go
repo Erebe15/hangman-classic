@@ -12,9 +12,10 @@ func PrintJose() {
 		panic(err)
 	}
 	var JoseFloor [][]string
-	States := strings.Split(string(data), "\n\n")
+	sep := []byte{13, 10}
+	States := strings.Split(string(data), string(sep)+string(sep))
 	for _, i := range States {
-		JoseFloor = append(JoseFloor, strings.Split(i, "\n"))
+		JoseFloor = append(JoseFloor, strings.Split(i, string(sep)))
 	}
 	for j, l := range JoseFloor[GameInProgress.Tries] {
 		fmt.Print(MoveTo(w.ligns/2-4+j, w.colones*75/100), l)
@@ -22,7 +23,7 @@ func PrintJose() {
 }
 
 func DrawHangmanState() {
-	if w.ligns >= 25 && w.colones > 65 {
+	if w.ligns >= 32 && w.colones > 65 {
 		drawFancy()
 	} else {
 		PrintJose()

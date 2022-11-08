@@ -1,12 +1,8 @@
 package main
 
-import (
-	hangman "hangman/Functions"
-)
-
 func WordIsCompleted() bool {
-	for _, w := range GameInProgress.Word {
-		if !hangman.DoesContain(GameInProgress.RevealedLettres, string(w)) {
+	for _, wo := range GameInProgress.Word {
+		if !DoesContain(GameInProgress.RevealedLettres, string(wo)) {
 			return false
 		}
 	}
@@ -47,7 +43,6 @@ func ProcessGuess(guess string) {
 
 func StartPlaying() {
 	GameInProgress.Status = 1 // playing
-
 	for GameInProgress.Tries < 10 && !WordIsCompleted() {
 
 		ClearTerminal()
@@ -62,5 +57,4 @@ func StartPlaying() {
 	} else {
 		GameInProgress.Status = 3 // lost game
 	}
-	UpdateS()
 }
